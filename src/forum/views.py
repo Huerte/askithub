@@ -1,3 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def homepage_view(requests):
+    return render(requests, 'forum/home.html')
