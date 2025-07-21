@@ -6,6 +6,3 @@ def homepage_view(requests):
 
 def login_view(requests):
     return render(requests, 'forum/auth/login.html')
-
-def register_view(requests):
-    return render(requests, 'forum/auth/register.html')
