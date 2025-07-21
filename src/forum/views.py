@@ -1,5 +1,5 @@
 from django.shortcuts import render
 
 
-def homepage_view(requests):
-    return render(requests, 'home.html')
+def homepage_view(request):
+    return render(request, 'home.html')
