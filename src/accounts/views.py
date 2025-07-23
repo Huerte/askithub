@@ -22,11 +22,11 @@ def login_user(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-        logger.info(f"{username} {password}")
         user = authenticate(request, username=username, password=password)
+
         if user:
             login(request, user=user)
-            render(request, 'home.html')
+            return redirect('homepage')
 
     return redirect('login-page')
 
