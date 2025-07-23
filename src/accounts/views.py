@@ -2,6 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth import login
+from django.views.decorators.csrf import requires_csrf_token
+import logging
+
+# Get a logger instance
+logger = logging.getLogger(__name__)
 
 
 def login_view(request):
@@ -10,21 +15,22 @@ def login_view(request):
 def register_view(request):
     return render(request, 'auth/register.html')
 
-
+@requires_csrf_token
 def login_user(request):
 
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
 
+        logger.info(f"{username} {password}")
         user = authenticate(request, username=username, password=password)
         if user:
             login(request, user=user)
-            redirect('homepage')
+            render(request, 'home.html')
 
     return redirect('login-page')
 
-
+@requires_csrf_token
 def register_user(request):
 
     if request.method == 'POST':
