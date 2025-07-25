@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.views.decorators.csrf import requires_csrf_token
 import logging
 
@@ -50,3 +50,7 @@ def register_user(request):
             return redirect('login-page')
 
     return redirect('register-page')
+
+def logout_user(request):
+    logout(request)
+    return redirect('login-page')
