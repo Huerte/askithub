@@ -34,7 +34,7 @@
                                         <div class="d-flex w-100 justify-content-between">
                                             <h5 class="mb-1">{{ question.title }}</h5>
 
-                                            <small>{{ question.created_at }} days ago</small>
+                                            <small>{{ question.created_at|timesince }} ago</small>
                                         </div>
 
                                         <p class="mb-1">{{ question.placeholder_paragraph }}...</p>
