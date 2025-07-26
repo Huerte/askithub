@@ -21,6 +21,9 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'forum.apps.ForumConfig',
+
+    'jazzmin',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -59,6 +62,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'main.wsgi.application'
 
+JAZZMIN_UI_TWEAKS = {
+    "theme": "darkly",
+}
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
