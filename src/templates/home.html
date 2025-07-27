@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <div class="container-fluid text-light">
+    <div class="container-fluid text-light min-vh-100">
         <div class="row m-3">
             <!-- Interested Topics -->
              <div class="col-4"> 
@@ -27,24 +27,26 @@
                     <div class="panel-body rounded">
                         
                         <!-- Question  -->
-                        <div class="list-group">
-                            {% if question_thread %}
-                                {% for question in question_thread %}
-                                    <a href="{% url 'enter_room' question.id %}" class="list-group-item list-group-item-action">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <h5 class="mb-1">{{ question.title }}</h5>
+                        <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="0">
+                            <div class="list-group">
+                                {% if question_thread %}
+                                    {% for question in question_thread %}
+                                        <a href="{% url 'enter_room' question.id %}" class="list-group-item list-group-item-action">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h5 class="mb-1">{{ question.title }}</h5>
 
-                                            <small>{{ question.created_at|timesince }} ago</small>
-                                        </div>
+                                                <small>{{ question.created_at|timesince }} ago</small>
+                                            </div>
 
-                                        <p class="mb-1">{{ question.placeholder_paragraph }}...</p>
+                                            <p class="mb-1">{{ question.placeholder_paragraph }}...</p>
 
-                                        <div class="d-flex align-items-center justify-content-end gap-3 mt-2">
-                                            <i class="bi bi-chat-left-fill">{{ question.answers_count }}</i>
-                                        </div>
-                                    </a>
-                                {% endfor %}
-                            {% endif %}
+                                            <div class="d-flex align-items-center justify-content-end gap-3 mt-2">
+                                                <i class="bi bi-chat-left-fill">{{ question.answers_count }}</i>
+                                            </div>
+                                        </a>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
                         </div>
 
                         <div class="d-flex justify-content-center mt-3">
@@ -59,11 +61,59 @@
         </div>
     </div>
 
+    <button type="button" class="btn btn-primary position-fixed bottom-0 end-0 m-4 px-3 py-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        <i class="bi bi-chat-left-text"></i> <span class="ms-2">Ask Question</span>
+    </button>
 
-    <!-- Hot Topics  -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">\
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Ask Question</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{% url 'add_question' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <input type="text" name="title" placeholder="Title" class="mb-3">
+                        <input type="text" name="topic" placeholder="Topic" class="mb-3">
+                        <textarea class="form-control" placeholder="Body" name="body"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-send-plus me-2"></i>Proceed</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-    
-    <!-- Contacts -->
-    
+    <!-- <button type="button" class="btn btn-primary" id="liveToastBtn">Show live toast</button>
+
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <img src="#" class="rounded me-2" alt="#">
+                <strong class="me-auto">Bootstrap</strong>
+                <small>11 mins ago</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                Hello, world! This is a toast message.
+            </div>
+        </div>
+    </div>
+
+<script>
+    const toastTrigger = document.getElementById('liveToastBtn')
+    const toastLiveExample = document.getElementById('liveToast')
+
+    if (toastTrigger) {
+        const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+        toastTrigger.addEventListener('click', () => {
+            toastBootstrap.show()
+        })
+    }
+</script> -->
 
 {% endblock %}

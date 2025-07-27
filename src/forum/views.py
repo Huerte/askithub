@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import QuestionThread, Answer
+from .models import QuestionThread, Answer, Topic
 
 
 def homepage_view(request):
@@ -41,3 +41,22 @@ def comment(request, room_id):
         answer.save()
 
     return redirect('enter_room', room_id=room_id)
+
+
+@login_required(login_url='/auth/login/')
+def add_question(request):
+    
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        topic = request.POST.get('topic')
+        body = request.POST.get('body')
+
+        if not title or not topic:
+            return redirect('homepage')
+        
+        topic_instance, _ = Topic.objects.get_or_create(name=topic.title())
+
+        new_question = QuestionThread(created_by=request.user, title=title, topic=topic_instance, body=body)
+        new_question.save()
+    
+    return redirect('homepage')
