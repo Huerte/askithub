@@ -5,9 +5,12 @@ from .models import QuestionThread, Answer, Topic
 
 def homepage_view(request):
 
-    question_thread = QuestionThread.objects.all()[:5]
+    question_thread = QuestionThread.objects.all()[::-1][:5]
+    topics = Topic.objects.all()[:5]
+
     context = {
         'question_thread': question_thread,
+        'topics': topics,
     }
 
     return render(request, 'home.html', context)
@@ -80,3 +83,17 @@ def delete_question(request, room_id):
         room.delete()
     
     return redirect('homepage')
+
+
+def visit_topics(request, topic_id):
+
+    topic = get_object_or_404(Topic, id=topic_id)
+    questions = QuestionThread.objects.filter(topic=topic)
+
+    context = {
+        'questions': questions,
+        'topic': topic,
+        'total_question': len(questions)
+    }
+
+    return render(request, 'section/topics.html', context)
