@@ -8,13 +8,10 @@
              <div class="col-4"> 
                 <h5> Hot Topics </h5>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item bg-success border-0"><a href="#" class="text-white text-decoration-none">Python</a></li>
-                    <li class="list-group-item bg-success border-0"><a href="#" class="text-white text-decoration-none">Javascript</a></li>
-                    <li class="list-group-item bg-success border-0"><a href="#" class="text-white text-decoration-none">HTML</a></li>
-                    <li class="list-group-item bg-success border-0"><a href="#" class="text-white text-decoration-none">Django</a></li>
-                    <li class="list-group-item bg-success border-0"><a href="#" class="text-white text-decoration-none">React</a></li>
+                    {% for topic in topics %}
+                        <li class="list-group-item bg-success border-0"><a href="{% url 'visit_related_topics' topic.id %}" class="text-white text-decoration-none">{{ topic.name }}</a></li>
+                    {% endfor %}
                 </ul>
-
             </div>
 
             <!-- Hot topics -->
