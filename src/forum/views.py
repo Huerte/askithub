@@ -42,6 +42,16 @@ def comment(request, room_id):
 
     return redirect('enter_room', room_id=room_id)
 
+@login_required(login_url='/auth/login/')
+def remove_comment(request, comment_id):
+
+    comment = get_object_or_404(Answer, id=comment_id)
+
+    if request.user == comment.answer_by:
+        comment.delete()
+
+    return redirect(request.META.get('HTTP_REFERER', '/')) # This will return the user to the page he/she come from
+
 
 @login_required(login_url='/auth/login/')
 def add_question(request):
