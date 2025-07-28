@@ -70,3 +70,13 @@ def add_question(request):
         new_question.save()
     
     return redirect('homepage')
+
+@login_required(login_url='/auth/login/')
+def delete_question(request, room_id):
+
+    room = get_object_or_404(QuestionThread, id=room_id)
+
+    if room.created_by == request.user:
+        room.delete()
+    
+    return redirect('homepage')
