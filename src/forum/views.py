@@ -97,3 +97,8 @@ def visit_topics(request, topic_id):
     }
 
     return render(request, 'section/topics.html', context)
+
+#### PRIORITIZE THE FIRST ORDER!!!
+### Add a confirmation action before logout
+### Add a search feature
+### Add remaining sections (about and explore)
