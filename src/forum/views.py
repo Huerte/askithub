@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import QuestionThread, Answer, Topic
+from django.db.models import Q
 
 
 def homepage_view(request):
@@ -98,7 +99,32 @@ def visit_topics(request, topic_id):
 
     return render(request, 'section/topics.html', context)
 
+def search_page(request):
+
+    if request.method == 'POST':
+
+        search_query = request.POST.get('search_word')
+
+        if not search_query or search_query.strip() == "":
+            return redirect(request.META.get('HTTP_REFERER', '/'))
+        
+        related_questions = QuestionThread.objects.filter(
+            Q(title__icontains=search_query) |
+            Q(body__icontains=search_query) |
+            Q(topic__name__icontains=search_query) |
+            Q(created_by__username__icontains=search_query)
+        )
+
+        context = {
+            'related_questions': related_questions,
+            'search_query': search_query
+        }
+
+        return render(request, 'section/search-page.html', context)
+
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+
 #### PRIORITIZE THE FIRST ORDER!!!
-### Add a confirmation action before logout
 ### Add a search feature
 ### Add remaining sections (about and explore)

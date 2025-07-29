@@ -11,4 +11,5 @@ urlpatterns = [
     path('delete-question/<str:room_id>', views.delete_question, name='delete_question'),
 
     path('related-questions/<str:topic_id>', views.visit_topics, name='visit_related_topics'),
+    path('search/>', views.search_page, name='search'),
 ]
