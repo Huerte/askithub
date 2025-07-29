@@ -19,8 +19,9 @@
             <a class="nav-link" href="#">About</a>
         </li>
       </ul>
-      <form class="d-flex mx-3" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+      <form method="POST" action="{% url 'search' %}" class="d-flex mx-3" role="search">
+        {% csrf_token %}
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_word"/>
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
 

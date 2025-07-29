@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if search_query %}
+        <h3>Related Question about: {{ search_query }}</h3>
+    {% endif %}
+ 
+    {% if related_questions %}
+
+        {% for question in related_questions %}
+            <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary p-3 rounded-2" tabindex="0">
+                                <div class="list-group">
+                                            <a href="{% url 'enter_room' question.id %}" class="list-group-item list-group-item-action">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <h5 class="mb-1">{{ question.title }}</h5>
+
+                                                    <small>{{ question.created_at|timesince }} ago</small>
+                                                </div>
+
+                                                <p class="mb-1">{{ question.placeholder_paragraph }}...</p>
+
+                                                <div class="d-flex align-items-center justify-content-end gap-3 mt-2">
+                                                    <i class="bi bi-chat-left-fill">{{ question.answers_count }}</i>
+                                                </div>
+                                            </a>
+                                </div>
+            </div>
+        {% endfor %}
+
+    {% else %}
+        <p class="text-align-center">No item found</p>
+    {% endif %}
+{% endblock %}
