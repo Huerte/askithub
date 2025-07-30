@@ -126,5 +126,4 @@ def search_page(request):
 
 
 #### PRIORITIZE THE FIRST ORDER!!!
-### Add a search feature
 ### Add remaining sections (about and explore)
