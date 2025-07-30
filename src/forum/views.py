@@ -16,6 +16,8 @@ def homepage_view(request):
 
     return render(request, 'home.html', context)
 
+def about_page(request):
+    return render(request, 'section/about-page.html')
 
 def all_question_view(request):
 
