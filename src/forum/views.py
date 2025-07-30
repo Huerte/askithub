@@ -17,6 +17,17 @@ def homepage_view(request):
     return render(request, 'home.html', context)
 
 
+def all_question_view(request):
+
+    question_thread = QuestionThread.objects.all()
+
+    context = {
+        'all_questions': question_thread,
+    }
+
+    return render(request, 'section/explore-page.html', context)
+
+
 @login_required(login_url='/auth/login')
 def enter_room(request, room_id):
 
