@@ -16,7 +16,7 @@ def homepage_view(request):
 
     return render(request, 'home.html', context)
 
-def about_page(request):
+def about_view(request):
     return render(request, 'section/about-page.html')
 
 def all_question_view(request):
@@ -29,6 +29,10 @@ def all_question_view(request):
 
     return render(request, 'section/explore-page.html', context)
 
+@login_required(login_url='/auth/login')
+def profile_view(request):
+    context = {}
+    return render(request, 'section/profile-page.html', context)
 
 @login_required(login_url='/auth/login')
 def enter_room(request, room_id):
@@ -137,7 +141,3 @@ def search_page(request):
         return render(request, 'section/search-page.html', context)
 
     return redirect(request.META.get('HTTP_REFERER', '/'))
-
-
-#### PRIORITIZE THE FIRST ORDER!!!
-### Add remaining sections (about and explore)
