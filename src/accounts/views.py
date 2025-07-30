@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout
 from django.views.decorators.csrf import requires_csrf_token
 import logging
+from .models import UserStatus
+
 
 # Get a logger instance
 logger = logging.getLogger(__name__)
@@ -26,6 +28,11 @@ def login_user(request):
 
         if user:
             login(request, user=user)
+            UserStatus.objects.update_or_create(
+                user=user,
+                defaults={'is_online': True}
+            )
+
             return redirect('homepage')
 
     return redirect('login-page')
@@ -52,5 +59,10 @@ def register_user(request):
     return redirect('register-page')
 
 def logout_user(request):
+    UserStatus.objects.update_or_create(
+        user=request.user,
+        defaults={'is_online': False}
+    )
+    
     logout(request)
     return redirect('login-page')
