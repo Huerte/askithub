@@ -1,17 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% if search_query %}
-        <h3>Related Question about: {{ search_query }}</h3>
-    {% endif %}
 
-    {% if related_questions %}
-        {% for question in related_questions %}
+    <h3>All Room</h3>
+
+    {% if all_questions %}
+        {% for question in all_questions %}
             <div data-bs-spy="scroll" 
                  data-bs-target="#navbar-example2" 
                  data-bs-root-margin="0px 0px -40%" 
                  data-bs-smooth-scroll="true" 
-                 class="scrollspy-example bg-body-tertiary p-3 rounded-2" 
+                 class="scrollspy-example bg-body-tertiary p-3 rounded-2 mt-4" 
                  tabindex="0">
                  
                 <div class="list-group">
