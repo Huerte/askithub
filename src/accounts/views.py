@@ -17,6 +17,9 @@ def login_view(request):
 def register_view(request):
     return render(request, 'auth/register.html')
 
+def forgot_password_view(request):
+    return render(request, 'auth/forgot-password.html')
+
 @requires_csrf_token
 def login_user(request):
 
