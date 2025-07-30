@@ -110,7 +110,7 @@ def visit_topics(request, topic_id):
         'total_question': len(questions)
     }
 
-    return render(request, 'section/topics.html', context)
+    return render(request, 'section/topics-page.html', context)
 
 def search_page(request):
 
@@ -130,7 +130,8 @@ def search_page(request):
 
         context = {
             'related_questions': related_questions,
-            'search_query': search_query
+            'search_query': search_query,
+            'total_related_questions': len(related_questions),
         }
 
         return render(request, 'section/search-page.html', context)
