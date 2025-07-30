@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container-fluid align-items-center my-3">
+        <h2 class="text-center">About AskItHub</h2>
+        <hr>
+
+        <div class="mt-5">
+            <h3>{{ request.user.username }}</h3>
+        </div>
+    </div>
+{% endblock %}
