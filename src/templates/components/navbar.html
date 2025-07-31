@@ -19,7 +19,11 @@
       <form method="POST" action="{% url 'search' %}" class="d-flex mx-3" role="search">
         {% csrf_token %}
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_word"/>
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <!-- <button class="btn btn-outline-success px-3" type="submit"><i class="bi bi-search me-2"></i>Search</button> -->
+         <button class="btn btn-outline-success w-50" type="submit">
+  <i class="bi bi-search me-2"></i>Search
+</button>
+
       </form>
 
       <button class="btn rounded-circle btn-primary d-none d-lg-inline-block" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
