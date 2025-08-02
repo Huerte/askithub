@@ -41,20 +41,37 @@
 
 <div class="offcanvas offcanvas-end text-bg-dark" style="width: 250px;" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
   <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasRightLabel">Offcanvas</h5>
+    <h5 class="offcanvas-title" id="offcanvasRightLabel">AskItHub</h5>
     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body">
-    <a href="{% url 'profile_page' %}" class="btn btn-primary"><i class="bi bi-person-circle me-2"></i>Profile</a>
+    <div class="row mb-3">
+      <div class="col">
+        <a href="{% url 'profile_page' %}" class="btn btn-primary"><i class="bi bi-person-circle me-2"></i>Profile</a>
+      </div>
+    </div>
 
-    {% if user and user.is_authenticated %}
-      <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#logoutConfirmation">
-        <i class="bi bi-box-arrow-left"></i> <span class="ms-2">Logout</span>
-      </button>
-    {% else %}
-      <a class="btn btn-warning" href="{% url 'login' %}">Login</a>
-      <a class="btn btn-warning" href="{% url 'register' %}">Sign up</a>
-    {% endif %}
+    <div class="row gap-2">
+      <div class="col">
+            {% if user and user.is_authenticated %}
+              <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#logoutConfirmation">
+                <i class="bi bi-box-arrow-left"></i> <span class="ms-2">Logout</span>
+              </button>
+            {% else %}
+              <div class="row mb-3">
+                <div class="col">
+                  <a class="btn btn-warning" href="{% url 'login' %}">Login</a>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col">
+                  <a class="btn btn-warning" href="{% url 'register' %}">Sign up</a>
+                </div>
+              </div>
+            {% endif %}
+      </div>
+    </div>
 
   </div>
 </div>
