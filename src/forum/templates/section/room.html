@@ -50,12 +50,12 @@
                             {% for answer in answers %}
                                 <div class="mt-2">
                                     <div class="row">
-                                        <div class="col-11">
+                                        <div class="col-10">
                                             <p>{{ answer.answer_by.username }}</p>
                                         </div>
                                         
                                         {% if request.user == answer.answer_by %}
-                                            <div class="col-1">
+                                            <div class="col-2">
                                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#removeComment">
                                                     <i class="bi bi-trash"></i>
                                                 </button>
@@ -79,6 +79,32 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editAnswer">
+                                                    <i class="bi bi-pencil-square"></i> <span class="ms-2">Edit</span>
+                                                </button>
+
+                                                <div class="modal fade" id="editAnswer" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editAnswerLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit Answer</h1>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <form action="{% url 'edit_answer' answer.id %}" method="POST">
+                                                                {% csrf_token %}
+                                                                <div class="modal-body">
+                                                                    <textarea class="form-control" placeholder="Body" name="body"></textarea>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                    <button type="submit" class="btn btn-primary"><i class="bi bi-send-plus me-2"></i>Proceed</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                         {% endif %}
                                     </div>
