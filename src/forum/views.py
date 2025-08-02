@@ -103,6 +103,16 @@ def delete_question(request, room_id):
     return redirect('homepage')
 
 
+@login_required(login_url='/auth/login/')
+def edit_answer(request, answer_id):
+
+    if request.method == 'POST':
+        body = request.Post.get('body')
+
+        ## Add a edit comment feature
+
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
 def visit_topics(request, topic_id):
 
     topic = get_object_or_404(Topic, id=topic_id)
