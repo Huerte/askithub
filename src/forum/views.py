@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import QuestionThread, Answer, Topic
 from django.db.models import Q
+from django.http import JsonResponse
 
 
 def homepage_view(request):
@@ -102,15 +103,24 @@ def delete_question(request, room_id):
     
     return redirect('homepage')
 
+@login_required(login_url='/auth/login/')
+def get_answer_body(request, answer_id):
+    if request.method == 'GET':
+        answer = Answer.objects.get(id=answer_id)
+        return JsonResponse({'body': answer.answer})
+    return JsonResponse({'error': 'Invalid Request'}, status=400)
 
 @login_required(login_url='/auth/login/')
 def edit_answer(request, answer_id):
 
     if request.method == 'POST':
-        body = request.Post.get('body')
+        body = request.POST.get('body', 'Empty Message...')
 
-        ## Add a edit comment feature
-
+        answer = Answer.objects.update_or_create(
+            id=answer_id,
+            defaults={'answer': body},
+        )
+        
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
 def visit_topics(request, topic_id):

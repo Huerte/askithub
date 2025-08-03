@@ -80,11 +80,11 @@
                                                     </div>
                                                 </div>
 
-                                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editAnswer">
+                                                <button type="button" class="btn btn-success" onclick="loadMessage('{{ answer.id }}')">
                                                     <i class="bi bi-pencil-square"></i> <span class="ms-2">Edit</span>
                                                 </button>
 
-                                                <div class="modal fade" id="editAnswer" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editAnswerLabel" aria-hidden="true">
+                                                <div class="modal fade" id="editAnswer{{ answer.id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editAnswerLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -94,7 +94,7 @@
                                                             <form action="{% url 'edit_answer' answer.id %}" method="POST">
                                                                 {% csrf_token %}
                                                                 <div class="modal-body">
-                                                                    <textarea class="form-control" placeholder="Body" name="body"></textarea>
+                                                                    <textarea class="form-control" placeholder="Body" name="body" id="edit-message-area{{ answer.id }}"></textarea>
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -132,7 +132,7 @@
     </button>
 
     <div class="modal fade" id="addComment" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">\
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Comment</h1>
@@ -154,3 +154,28 @@
 {% endblock %}
 
 {% block footer %}{% endblock %}
+
+{% block js %}
+<script>
+    function loadMessage(answerId) {
+        fetch(`/answer/${answerId}/get`)
+        .then(response => response.json())
+        .then(data => {
+
+            if (data.body !== undefined) {
+                document.getElementById(`edit-message-area${answerId}`).value = data.body;
+
+                let modal = new bootstrap.Modal(document.getElementById(`editAnswer${answerId}`));
+                modal.show();
+            } else {
+                alert("Failed to load answer.");
+            }
+
+        })
+        .catch(error => {
+            console.error('Error fetching answer:', error);
+            alert("Something went wrong.");
+        });
+    }
+</script>
+{% endblock %}
