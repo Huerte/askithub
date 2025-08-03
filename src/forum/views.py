@@ -41,6 +41,9 @@ def enter_room(request, room_id):
     question_thread = QuestionThread.objects.get(id=room_id)
     answers = question_thread.answers.all()
 
+    if request.user.is_authenticated:
+        question_thread.mark_seen(request.user)
+
     context = {
         'question_thread': question_thread,
         'answers': answers,

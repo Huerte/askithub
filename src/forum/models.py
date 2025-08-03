@@ -15,6 +15,7 @@ class QuestionThread(models.Model):
     title = models.CharField(max_length=300)
     body = models.TextField(max_length=1000, null=True, blank=True)
 
+    seen_users = models.ManyToManyField(User, related_name='seen_threads', blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -25,6 +26,13 @@ class QuestionThread(models.Model):
     
     def answers_count(self):
         return self.answers.count()
+    
+    def mark_seen(self, user):
+        if user.is_authenticated and user not in self.seen_users.all():
+            self.seen_users.add(user)
+
+    def seen_numbers(self):
+        return self.seen_users.count()
 
 class Answer(models.Model):
     answer_by = models.ForeignKey(User, on_delete=models.CASCADE)
