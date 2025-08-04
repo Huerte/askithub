@@ -13,4 +13,5 @@ urlpatterns = [
 
     path('profile-page/', views.profile_view, name='profile_page'),
 
+    path('avatar-update/', views.update_avatar, name='update_profile'),
 ]

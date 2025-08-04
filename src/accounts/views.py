@@ -5,7 +5,7 @@ from django.contrib.auth import login, logout
 from django.views.decorators.csrf import requires_csrf_token
 from django.contrib.auth.decorators import login_required
 import logging
-from .models import UserStatus
+from .models import UserStatus, Profile
 
 
 # Get a logger instance
@@ -73,5 +73,24 @@ def logout_user(request):
 
 @login_required(login_url='/auth/login')
 def profile_view(request):
-    context = {}
+
+    profile, _ = Profile.objects.get_or_create(user=request.user)
+
+    context = {
+        'profile': profile,
+        'avatar': profile.avatar
+    }
+    
     return render(request, 'section/profile-page.html', context)
+
+@login_required(login_url='/auth/login')
+def update_avatar(request):
+
+    if request.method == 'POST':
+        profile = Profile.objects.get(user=request.user)
+
+        if request.FILES.get('avatar'):
+            profile.avatar = request.FILES['avatar']
+            profile.save()
+
+    return redirect(request.META.get('HTTP_REFERER', '/'))
