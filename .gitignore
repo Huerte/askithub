@@ -218,3 +218,6 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# TODO and planning files
+TODO_PROFILE_ABOUT_PAGES.md
