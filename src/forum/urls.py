@@ -7,8 +7,6 @@ urlpatterns = [
     path('all-room/', views.all_question_view, name='all_room'),
     path('about/', views.about_view, name='about_page'),
 
-    path('profile-page/', views.profile_view, name='profile_page'),
-
     path('room/<str:room_id>', views.enter_room, name='enter_room'),
     path('answer/<str:room_id>', views.comment, name='answer_question'),
     path('remove-answer/<str:comment_id>', views.remove_comment, name='remove_answer'),

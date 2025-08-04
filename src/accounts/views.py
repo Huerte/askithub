@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout
 from django.views.decorators.csrf import requires_csrf_token
+from django.contrib.auth.decorators import login_required
 import logging
 from .models import UserStatus
 
@@ -69,3 +70,8 @@ def logout_user(request):
     
     logout(request)
     return redirect('login-page')
+
+@login_required(login_url='/auth/login')
+def profile_view(request):
+    context = {}
+    return render(request, 'section/profile-page.html', context)
