@@ -29,7 +29,11 @@
                     </h5>
 
                     <p>
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Harum odit quaerat, sit dolorem eveniet perspiciatis ab rerum ut, ea iusto, culpa natus perferendis similique fugit amet distinctio saepe cum nam.
+                        {% if profile.bio %}
+                            {{ profile.bio }}
+                        {% else %}
+                            No bio available
+                        {% endif %}
                     </p>
                 </div>
             </div>
