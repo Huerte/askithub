@@ -99,3 +99,14 @@ def update_profile(request):
         profile.save()
 
     return redirect(request.META.get('HTTP_REFERER', '/'))
+
+@login_required(login_url='/auth/login/')
+def visit_profile(request, user_id):
+    user = User.objects.get(id=user_id)
+    profile, _ = Profile.objects.get_or_create(user=user)
+
+    context = {
+        'profile': profile,
+    }
+
+    return render(request, 'section/profile-page.html', context)
