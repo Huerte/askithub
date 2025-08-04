@@ -84,13 +84,18 @@ def profile_view(request):
     return render(request, 'section/profile-page.html', context)
 
 @login_required(login_url='/auth/login')
-def update_avatar(request):
+def update_profile(request):
 
     if request.method == 'POST':
         profile = Profile.objects.get(user=request.user)
 
         if request.FILES.get('avatar'):
             profile.avatar = request.FILES['avatar']
-            profile.save()
+
+        bio = request.POST.get('bio')
+        if bio:
+            profile.bio = bio
+
+        profile.save()
 
     return redirect(request.META.get('HTTP_REFERER', '/'))
