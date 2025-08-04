@@ -20,10 +20,18 @@
                                 Email: {{ profile.user.email }}
                             </p>
                         </div>
-
-                        <div class="col-2">
-                            <p>Last Seen: {{ user_status.last_seen|timesince }} ago</p>
-                        </div>
+                        
+                        {% if user_status.is_online %}
+                            <div class="col-2 bg-white text-center">
+                                <p class="text-success" style="font-weight: 900;">
+                                    Online
+                                </p>
+                            </div>
+                        {% else %}
+                            <div class="col-2  bg-white">
+                                <p>Last Seen: {{ user_status.last_seen|timesince }} ago</p>
+                            </div>
+                        {% endif %}
                     </div>
                     
                     
