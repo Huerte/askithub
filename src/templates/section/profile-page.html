@@ -25,7 +25,7 @@
             <div class="row mt-3 mx-2">
                 <div class="col">
                     <h5>
-                        Bio:
+                        About Me:
                     </h5>
 
                     <p>
@@ -42,13 +42,15 @@
     </button>
 
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">\
-            <div class="modal-content">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content p-4">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Profile</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
+                <form action="{% url 'update_profile' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
                     <div class="row">
                         <div class="col">
                             <p class="lead">Update Avatar</p>
@@ -57,16 +59,26 @@
 
                     <div class="row">
                         <div class="col">
-                            <form action="{% url 'update_profile' %}" method="post" enctype="multipart/form-data">
-                                    {% csrf_token %}
-                                    <div class="input-group mb-3">
-                                        <input type="file" name="avatar" class="form-control" id="inputGroupFile02">
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                </form>
-                            </div>
+                                <div class="input-group mb-3">
+                                    <input type="file" name="avatar" class="form-control" id="inputGroupFile02">
+                                </div>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <p class="lead">Tell us about yourself:</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <textarea name="bio" placeholder="Write it here..."></textarea>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
             </div>
         </div>
     </div>
