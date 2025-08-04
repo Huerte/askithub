@@ -9,7 +9,7 @@
                         <div class="mb-5">
 
                             <h1>{{ question_thread.title }}</h1>
-                            <small>Author by: <a href="{% url 'visit_profile' question_thread.created_by.id %}" class="text-decoration-none">{{ question_thread.created_by.username }}</a></small>
+                            <small>Author by: <a href="{% url 'visit_profile' question_thread.created_by.id %}" class="text-decoration-none text-black">{{ question_thread.created_by.username }}</a></small>
                             <hr>
 
                             <p>{{ question_thread.body }}</p>
@@ -51,7 +51,7 @@
                                 <div class="mt-2">
                                     <div class="row">
                                         <div class="col-10">
-                                            <p><a href="{% url 'visit_profile' answer.answer_by.id %}" class="text-decoration-none">{{ answer.answer_by.username }}</a></p>
+                                            <p><a href="{% url 'visit_profile' answer.answer_by.id %}" class="text-decoration-none text-black">{{ answer.answer_by.username }}</a></p>
                                         </div>
                                         
                                         {% if request.user == answer.answer_by %}
