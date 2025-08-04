@@ -12,9 +12,17 @@
                         <div class="col-1">
                             <img src="{{profile.avatar.url}}" alt="{{ profile.user.username }} avatar" class="img rounded-circle img-thumbnail"  width="100" height="100">
                         </div>
-                        <div class="col-11">
-                            <h3>Username: {{ profile.user.username }}</h3>
-                            <h3>Email: {{ profile.user.email }}</h3>
+                        <div class="col-9">
+                            <p class="lead">
+                                Username: {{ profile.user.username }}
+                            </p>
+                            <p class="lead">
+                                Email: {{ profile.user.email }}
+                            </p>
+                        </div>
+
+                        <div class="col-2">
+                            <p>Last Seen: {{ user_status.last_seen|timesince }} ago</p>
                         </div>
                     </div>
                     
