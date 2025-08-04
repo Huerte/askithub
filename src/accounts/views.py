@@ -4,12 +4,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout
 from django.views.decorators.csrf import requires_csrf_token
 from django.contrib.auth.decorators import login_required
-import logging
 from .models import UserStatus, Profile
-
-
-# Get a logger instance
-logger = logging.getLogger(__name__)
+from django.utils import timezone
 
 
 def login_view(request):
@@ -37,6 +33,8 @@ def login_user(request):
                 defaults={'is_online': True}
             )
 
+            update_user_status(request)
+            
             return redirect('homepage')
 
     return redirect('login-page')
@@ -62,7 +60,10 @@ def register_user(request):
 
     return redirect('register-page')
 
+@login_required(login_url='/auth/login/')
 def logout_user(request):
+    update_user_status(request)
+
     UserStatus.objects.update_or_create(
         user=request.user,
         defaults={'is_online': False}
@@ -72,19 +73,9 @@ def logout_user(request):
     return redirect('login-page')
 
 @login_required(login_url='/auth/login')
-def profile_view(request):
-
-    profile, _ = Profile.objects.get_or_create(user=request.user)
-
-    context = {
-        'profile': profile,
-        'avatar': profile.avatar
-    }
-    
-    return render(request, 'section/profile-page.html', context)
-
-@login_required(login_url='/auth/login')
 def update_profile(request):
+    update_user_status(request)
+
 
     if request.method == 'POST':
         profile = Profile.objects.get(user=request.user)
@@ -102,11 +93,21 @@ def update_profile(request):
 
 @login_required(login_url='/auth/login/')
 def visit_profile(request, user_id):
+    update_user_status(request)
+
     user = User.objects.get(id=user_id)
     profile, _ = Profile.objects.get_or_create(user=user)
+    user_status, _ = UserStatus.objects.get_or_create(user=user)
 
     context = {
         'profile': profile,
+        'user_status': user_status,
     }
 
     return render(request, 'section/profile-page.html', context)
+
+@login_required(login_url='/auth/login/')
+def update_user_status(request):
+    user_status, _ = UserStatus.objects.get_or_create(user=request.user)
+    user_status.last_seen = timezone.now()
+    user_status.save()
