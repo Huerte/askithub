@@ -38,6 +38,24 @@
                 </div>
             </div>
 
+            {% if users_questions %}
+                <div class="card mt-3" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Activity & Statistics</h5>
+                        <p class="card-text">Questions Asked: {{ questions_count }}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        {% for question in users_questions %}
+                            <li class="list-group-item"><a href="{% url 'enter_room' question.id %}">{{ question.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                    <div class="card-body">
+                        <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a>
+                    </div>
+                </div>
+            {% endif %}
+
         </div>
     </div>
 
