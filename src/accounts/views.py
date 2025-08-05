@@ -6,6 +6,7 @@ from django.views.decorators.csrf import requires_csrf_token
 from django.contrib.auth.decorators import login_required
 from .models import UserStatus, Profile
 from django.utils import timezone
+from forum.models import QuestionThread
 
 
 def login_view(request):
@@ -98,10 +99,16 @@ def visit_profile(request, user_id):
     user = User.objects.get(id=user_id)
     profile, _ = Profile.objects.get_or_create(user=user)
     user_status, _ = UserStatus.objects.get_or_create(user=user)
+    try:
+        users_questions = QuestionThread.objects.filter(created_by=user)
+    except QuestionThread.DoesNotExist:
+        users_questions = None
 
     context = {
         'profile': profile,
         'user_status': user_status,
+        'users_questions': users_questions,
+        'questions_count': len(users_questions),
     }
 
     return render(request, 'section/profile-page.html', context)
