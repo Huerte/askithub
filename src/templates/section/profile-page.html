@@ -41,8 +41,7 @@
             {% if users_questions %}
                 <div class="card mt-3" style="width: 18rem;">
                     <div class="card-body">
-                        <h5 class="card-title">Activity & Statistics</h5>
-                        <p class="card-text">Questions Asked: {{ questions_count }}</p>
+                        <h5 class="card-title">Recent Activities</h5>
                     </div>
                     <ul class="list-group list-group-flush">
                         {% for question in users_questions %}
@@ -53,6 +52,8 @@
                         <a href="#" class="card-link">Card link</a>
                         <a href="#" class="card-link">Another link</a>
                     </div>
+
+                    <p class="card-text text-center">Overall Questions Asked: {{ questions_count }}</p>
                 </div>
             {% endif %}
 

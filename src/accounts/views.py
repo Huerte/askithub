@@ -111,7 +111,7 @@ def visit_profile(request, user_id):
     context = {
         'profile': profile,
         'user_status': user_status,
-        'users_questions': users_questions,
+        'users_questions': sorted(users_questions, key=lambda users_questions: users_questions.created_at),
         'questions_count': len(users_questions),
     }
 
