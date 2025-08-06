@@ -104,11 +104,20 @@ def visit_profile(request, user_id):
     except QuestionThread.DoesNotExist:
         users_questions = None
 
+    is_followed = False
+    if request.user != user:
+        is_followed = profile.followers.filter(user=request.user).exists()
+
     context = {
         'profile': profile,
         'user_status': user_status,
         'users_questions': sorted(users_questions, key=lambda users_questions: users_questions.created_at),
         'questions_count': len(users_questions),
+        'following': profile.following.all(),
+        'following_count': profile.following.count(),
+        'followers': profile.followers.all(),
+        'followers_count': profile.followers.count(),
+        'is_followed': is_followed,
     }
 
     return render(request, 'section/profile-page.html', context)
@@ -118,3 +127,27 @@ def update_user_status(request):
     user_status, _ = UserStatus.objects.get_or_create(user=request.user)
     user_status.last_seen = timezone.now()
     user_status.save()
+
+
+@login_required(login_url='/auth/login/')
+def follow_user(request, user_id):
+
+    user = User.objects.get(id=user_id)
+    my_profile, _ = Profile.objects.get_or_create(user=request.user)
+    target_profile, _ = Profile.objects.get_or_create(user=user)
+
+    my_profile.following.add(target_profile)
+
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+
+@login_required(login_url='/auth/login/')
+def unfollow_user(request, user_id):
+
+    user = User.objects.get(id=user_id)
+    my_profile, _ = Profile.objects.get_or_create(user=request.user)
+    target_profile, _ = Profile.objects.get_or_create(user=user)
+
+    my_profile.following.remove(target_profile)
+
+    return redirect(request.META.get('HTTP_REFERER', '/'))
