@@ -22,10 +22,17 @@
                                 <small>{{ question.created_at|timesince }} ago</small>
                             </div>
 
-                            <p class="mb-1">{{ question.placeholder_paragraph }}...</p>
+                            <p class="my-3">{{ question.placeholder_paragraph }}...</p>
 
-                            <div class="d-flex align-items-center justify-content-end gap-3 mt-2">
-                                <i class="bi bi-chat-left-fill">{{ question.answers_count }}</i>
+                            <div class="row d-flex align-items-center mt-4">
+                                <div class="col d-flex justify-content-start">
+                                    <p>@{{ question.created_by.username }}</p>
+                                </div>
+
+                                <div class="col d-flex justify-content-end mt-2">
+                                    <i class="bi bi-eye-fill me-2"> {{ question.seen_numbers }} </i>
+                                    <i class="bi bi-chat-left-fill">{{ question.answers_count }}</i>
+                                </div>
                             </div>
                         </a>
                     </div>

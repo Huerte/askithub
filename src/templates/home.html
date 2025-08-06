@@ -35,12 +35,19 @@
                                                 <small>{{ question.created_at|timesince }} ago</small>
                                             </div>
 
-                                            <p class="mb-1">{{ question.placeholder_paragraph }}...</p>
+                                            <p class="my-3">{{ question.placeholder_paragraph }}...</p>
 
-                                            <div class="d-flex align-items-center justify-content-end gap-3 mt-2">
-                                                <i class="bi bi-eye-fill"> {{ question.seen_numbers }} </i>
-                                                <i class="bi bi-chat-left-fill">{{ question.answers_count }}</i>
+                                            <div class="row d-flex align-items-center mt-4">
+                                                <div class="col d-flex justify-content-start">
+                                                    <p>@{{ question.created_by.username }}</p>
+                                                </div>
+
+                                                <div class="col d-flex justify-content-end mt-2">
+                                                    <i class="bi bi-eye-fill me-2"> {{ question.seen_numbers }} </i>
+                                                    <i class="bi bi-chat-left-fill">{{ question.answers_count }}</i>
+                                                </div>
                                             </div>
+                                            
                                         </a>
                                     {% endfor %}
                                 {% endif %}
@@ -64,7 +71,7 @@
     </button>
 
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">\
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Ask Question</h1>
@@ -73,8 +80,14 @@
                 <form action="{% url 'add_question' %}" method="POST">
                     {% csrf_token %}
                     <div class="modal-body">
-                        <input type="text" name="title" placeholder="Title" class="mb-3">
-                        <input type="text" name="topic" placeholder="Topic" class="mb-3">
+                        <input type="text" name="title" placeholder="Title" class="form-control mb-3">
+                        <input class="form-control mb-3" name="topic" list="datalistOptions" id="exampleDataList" placeholder="Topic...">
+                        <datalist id="datalistOptions">
+                            {% for topic in topics %}
+                                <option value="{{ topic.name }}">
+                            {% endfor %}
+                        </datalist>
+
                         <textarea class="form-control" placeholder="Body" name="body"></textarea>
                     </div>
                     <div class="modal-footer">

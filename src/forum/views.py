@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .models import QuestionThread, Answer, Topic
 from django.db.models import Q
 from django.http import JsonResponse
+from accounts.views import update_user_status
 
 
 def homepage_view(request):
@@ -32,6 +33,7 @@ def all_question_view(request):
 
 @login_required(login_url='/auth/login')
 def enter_room(request, room_id):
+    update_user_status(request)
 
     question_thread = QuestionThread.objects.get(id=room_id)
     answers = question_thread.answers.all()
@@ -48,6 +50,7 @@ def enter_room(request, room_id):
 
 @login_required(login_url='/auth/login/')
 def comment(request, room_id):
+    update_user_status(request)
 
     if request.method == 'POST':
         comment = request.POST.get('comment')
@@ -64,6 +67,7 @@ def comment(request, room_id):
 
 @login_required(login_url='/auth/login/')
 def remove_comment(request, comment_id):
+    update_user_status(request)
 
     comment = get_object_or_404(Answer, id=comment_id)
 
@@ -75,7 +79,8 @@ def remove_comment(request, comment_id):
 
 @login_required(login_url='/auth/login/')
 def add_question(request):
-    
+    update_user_status(request)
+
     if request.method == 'POST':
         title = request.POST.get('title')
         topic = request.POST.get('topic')
@@ -93,7 +98,7 @@ def add_question(request):
 
 @login_required(login_url='/auth/login/')
 def delete_question(request, room_id):
-
+    update_user_status(request)
     room = get_object_or_404(QuestionThread, id=room_id)
 
     if room.created_by == request.user:
@@ -103,6 +108,7 @@ def delete_question(request, room_id):
 
 @login_required(login_url='/auth/login/')
 def get_answer_body(request, answer_id):
+    update_user_status(request)
     if request.method == 'GET':
         answer = Answer.objects.get(id=answer_id)
         return JsonResponse({'body': answer.answer})
@@ -110,7 +116,7 @@ def get_answer_body(request, answer_id):
 
 @login_required(login_url='/auth/login/')
 def edit_answer(request, answer_id):
-
+    update_user_status(request)
     if request.method == 'POST':
         body = request.POST.get('body', 'Empty Message...')
 
