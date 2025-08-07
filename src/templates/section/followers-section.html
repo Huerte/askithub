@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="container-fluid align-items-center p-3 bg-white">
+        {% if followers %}
+            {%for user in followers %}
+                <p class="lead">user.username</p>
+            {% endfor %}
+        {% else %}
+            {% if request.user == profile.user %}
+                <p class="text-secondary text-center">Seems you didnt had followers.</p>
+            {% else %}
+                <p class="text-secondary text-center">Seems the user didnt had followers.</p>
+            {% endif %}
+        {% endif %}
+    </div>
+
+{% endblock %}
