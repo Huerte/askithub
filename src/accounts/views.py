@@ -140,7 +140,6 @@ def follow_user(request, user_id):
 
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
-
 @login_required(login_url='/auth/login/')
 def unfollow_user(request, user_id):
 
@@ -151,3 +150,28 @@ def unfollow_user(request, user_id):
     my_profile.following.remove(target_profile)
 
     return redirect(request.META.get('HTTP_REFERER', '/'))
+
+
+@login_required(login_url='/auth/login/')
+def view_followers(request, user_id):
+
+    user = User.objects.get(id=user_id)
+    target_profile, _ = Profile.objects.get_or_create(user=user)
+
+    context = {
+        'followers': target_profile.followers.all(),
+    }
+
+    return render(request, 'section/followers-section.html', context)
+
+@login_required(login_url='/auth/login/')
+def view_following(request, user_id):
+
+    user = User.objects.get(id=user_id)
+    target_profile, _ = Profile.objects.get_or_create(user=user)
+
+    context = {
+        'following': target_profile.following.all(),
+    }
+
+    return render(request, 'section/following-section.html', context)

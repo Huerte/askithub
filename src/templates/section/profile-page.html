@@ -33,11 +33,11 @@
 
                             <div class="row">
                                 <div class="col-lg-2 col-sm-6">
-                                    <p>Following: {{ following_count }}</p>
+                                    <p>Following: <a href="{% url 'visit_following' profile.user.id %}" class="text-decoration-none px-3">{{ following_count }}</a></p>
                                 </div>
 
                                 <div class="col-lg-2 col-sm-6">
-                                    <p>Followers: {{ followers_count }}</p>
+                                    <p>Followers: <a href="{% url 'visit_followers' profile.user.id %}" class="text-decoration-none px-3">{{ followers_count }}</a></p>
                                 </div>
                             </div>
                         </div>
