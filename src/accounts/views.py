@@ -116,3 +116,59 @@ def visit_profile(request, user_id):
     }
 
     return render(request, 'section/profile-page.html', context)
+
+@login_required(login_url='/auth/login/')
+def update_user_status(request):
+    user_status, _ = UserStatus.objects.get_or_create(user=request.user)
+    user_status.last_seen = timezone.now()
+    user_status.save()
+
+
+@login_required(login_url='/auth/login/')
+def follow_user(request, user_id):
+
+    user = User.objects.get(id=user_id)
+    my_profile, _ = Profile.objects.get_or_create(user=request.user)
+    target_profile, _ = Profile.objects.get_or_create(user=user)
+
+    my_profile.following.add(target_profile)
+
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+@login_required(login_url='/auth/login/')
+def unfollow_user(request, user_id):
+
+    user = User.objects.get(id=user_id)
+    my_profile, _ = Profile.objects.get_or_create(user=request.user)
+    target_profile, _ = Profile.objects.get_or_create(user=user)
+
+    my_profile.following.remove(target_profile)
+
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+
+@login_required(login_url='/auth/login/')
+def view_followers(request, user_id):
+
+    user = User.objects.get(id=user_id)
+    target_profile, _ = Profile.objects.get_or_create(user=user)
+
+    context = {
+        'followers': target_profile.followers.all(),
+        'profile': target_profile,
+    }
+
+    return render(request, 'section/followers-section.html', context)
+
+@login_required(login_url='/auth/login/')
+def view_following(request, user_id):
+
+    user = User.objects.get(id=user_id)
+    target_profile, _ = Profile.objects.get_or_create(user=user)
+
+    context = {
+        'following': target_profile.following.all(),
+        'profile': target_profile,
+    }
+
+    return render(request, 'section/following-section.html', context)
