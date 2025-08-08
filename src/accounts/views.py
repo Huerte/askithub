@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout
 from django.views.decorators.csrf import requires_csrf_token
 from django.contrib.auth.decorators import login_required
-import logging
 from .models import UserStatus, Profile
 from django.utils import timezone
 from forum.models import QuestionThread
@@ -35,6 +34,8 @@ def login_user(request):
                 defaults={'is_online': True}
             )
 
+            update_user_status(request)
+            
             return redirect('homepage')
 
     return redirect('login-page')
@@ -60,7 +61,10 @@ def register_user(request):
 
     return redirect('register-page')
 
+@login_required(login_url='/auth/login/')
 def logout_user(request):
+    update_user_status(request)
+
     UserStatus.objects.update_or_create(
         user=request.user,
         defaults={'is_online': False}
@@ -70,19 +74,9 @@ def logout_user(request):
     return redirect('login-page')
 
 @login_required(login_url='/auth/login')
-def profile_view(request):
-
-    profile, _ = Profile.objects.get_or_create(user=request.user)
-
-    context = {
-        'profile': profile,
-        'avatar': profile.avatar
-    }
-    
-    return render(request, 'section/profile-page.html', context)
-
-@login_required(login_url='/auth/login')
 def update_profile(request):
+    update_user_status(request)
+
 
     if request.method == 'POST':
         profile = Profile.objects.get(user=request.user)
@@ -100,6 +94,8 @@ def update_profile(request):
 
 @login_required(login_url='/auth/login/')
 def visit_profile(request, user_id):
+    update_user_status(request)
+
     user = User.objects.get(id=user_id)
     profile, _ = Profile.objects.get_or_create(user=user)
     user_status, _ = UserStatus.objects.get_or_create(user=user)
@@ -108,11 +104,20 @@ def visit_profile(request, user_id):
     except QuestionThread.DoesNotExist:
         users_questions = None
 
+    is_followed = False
+    if request.user != user:
+        is_followed = profile.followers.filter(user=request.user).exists()
+
     context = {
         'profile': profile,
         'user_status': user_status,
         'users_questions': sorted(users_questions, key=lambda users_questions: users_questions.created_at),
         'questions_count': len(users_questions),
+        'following': profile.following.all(),
+        'following_count': profile.following.count(),
+        'followers': profile.followers.all(),
+        'followers_count': profile.followers.count(),
+        'is_followed': is_followed,
     }
 
     return render(request, 'section/profile-page.html', context)

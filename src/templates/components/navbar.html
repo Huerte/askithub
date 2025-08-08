@@ -47,7 +47,7 @@
   <div class="offcanvas-body">
     <div class="row mb-3">
       <div class="col">
-        <a href="{% url 'profile_page' %}" class="btn btn-primary"><i class="bi bi-person-circle me-2"></i>Profile</a>
+        <a href="{% url 'visit_profile' request.user.id %}" class="btn btn-primary"><i class="bi bi-person-circle me-2"></i>Profile</a>
       </div>
     </div>
 
