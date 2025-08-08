@@ -6,8 +6,8 @@
             <div class="row align-items-center">
                         <div class="col-1">
                             <div class="row">
-                                <div class="col">
-                            <img src="{{profile.avatar.url}}" alt="{{ profile.user.username }} avatar" class="img rounded-circle" width="100" height="100">
+                                <div class="col d-flex justify-content-center">
+                                    <img src="{{profile.avatar.url}}" alt="{{ profile.user.username }} avatar" class="img rounded" width="100" height="100">
                                 </div>
                             </div>
 
@@ -21,26 +21,37 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-9">
                             <div class="row">
                                 <div class="col-lg-9">
-                                    <p style="font-weight: bold; font-size: larger;">{{ profile.user.username }}</p>
+                                    <p style="font-weight: bolder; font-size: x-large;">{{ profile.user.username }}</p>
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <p>
+                                {% if profile.bio %}
+                                    {{ profile.bio }}
+                                {% else %}
+                                    No bio available
+                                {% endif %}
+                            </p>
 
-                    <p>
-                        {% if profile.bio %}
-                            {{ profile.bio }}
-                        {% else %}
-                            No bio available
-                        {% endif %}
-                    </p>
+                            <div class="d-flex flex-column">
+                                <small class="text-secondary mb-1">Location</small>
+                                <p class="mb-0">
+                                    {% if profile.location %}
+                                        {{ profile.location }}
+                                    {% else %}
+                                        No available location
+                                    {% endif %}
+                                </p>
                             </div>
+
+
                         </div>
 
-                        <div class="col-lg-2 d-flex justify-content-center">
+                        <div class="col-lg-2 d-flex justify-content-center mt-sm-3 mb-sm-2">
                             <div class="row">
                                 {% if profile.user != request.user %}
                                     <div class="col">
@@ -54,34 +65,34 @@
                             </div>
                                     
                         </div>
-                    </div>
+            </div>
 
             <hr>
 
             {% if users_questions %}
-                <h5 style="font-weight: bolder;">PROFILE STATS SECTION:</h5>
+                <div class="mb-4 p-4 border rounded bg-light">
+                    <h6 class="text-muted text-uppercase">Social</h6>
 
-                <div class="container ms-3 mt-4">
                     <div class="row">
                         <div class="col-auto">
-                            <p>Questions: <a href="" class="text-decoration-none px-2"> 45 </a></p>
+                            <p>Following: <a href="{% url 'visit_following' profile.user.id %}" class="text-decoration-none">{{ following_count }}</a></p>
                         </div>
 
                         <div class="col-auto">
-                            <p>Answers: <a href="" class="text-decoration-none px-2"> 85 </a></p>
+                            <p>Followers: <a href="{% url 'visit_followers' profile.user.id %}" class="text-decoration-none">{{ followers_count }}</a></p>
                         </div>
                     </div>
+                </div>
 
-                    <div class="row mt-lg-4">
-
+                <div class="mb-4 p-3 border rounded bg-light">
+                    <h6 class="text-uppercase text-muted">Activity</h6>
+                    <div class="row">
                         <div class="col-auto">
-                            <p>Followers: <a href="{% url 'visit_followers' profile.user.id %}" class="text-decoration-none px-2">{{ followers_count }}</a></p>
+                            <p>Questions: <a href="#" class="text-decoration-none px-2">45</a></p>
                         </div>
-
                         <div class="col-auto">
-                            <p>Following: <a href="{% url 'visit_following' profile.user.id %}" class="text-decoration-none px-2">{{ following_count }}</a></p>
+                            <p>Answers: <a href="#" class="text-decoration-none px-2">85</a></p>
                         </div>
-
                     </div>
                 </div>
             {% endif %}
