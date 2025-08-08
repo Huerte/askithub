@@ -4,8 +4,8 @@
 
     <div class="container-fluid align-items-center p-3 bg-white">
         {% if followers %}
-            {%for user in followers %}
-                <p class="lead">user.username</p>
+            {%for profile in followers %}
+                <p class="lead">{{ profile.user.username }}</p>
             {% endfor %}
         {% else %}
             {% if request.user == profile.user %}

@@ -160,6 +160,7 @@ def view_followers(request, user_id):
 
     context = {
         'followers': target_profile.followers.all(),
+        'profile': target_profile,
     }
 
     return render(request, 'section/followers-section.html', context)
@@ -172,6 +173,7 @@ def view_following(request, user_id):
 
     context = {
         'following': target_profile.following.all(),
+        'profile': target_profile,
     }
 
     return render(request, 'section/following-section.html', context)
