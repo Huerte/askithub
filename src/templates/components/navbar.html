@@ -16,24 +16,37 @@
             <a class="nav-link" href="{% url 'about_page' %}">About</a>
         </li>
       </ul>
+
+      <!-- Search bar -->
       <form method="POST" action="{% url 'search' %}" class="d-flex mx-3" role="search">
         {% csrf_token %}
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_word"/>
-        <!-- <button class="btn btn-outline-success px-3" type="submit"><i class="bi bi-search me-2"></i>Search</button> -->
-         <button class="btn btn-outline-success w-50" type="submit">
-  <i class="bi bi-search me-2"></i>Search
-</button>
-
+        <button class="btn btn-outline-success w-50" type="submit">
+          <i class="bi bi-search me-2"></i>Search
+        </button>
       </form>
 
-      <button class="btn rounded-circle btn-primary d-none d-lg-inline-block" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-        <i class="bi bi-person-fill"></i>
-      </button>
+      {% if request.user.is_authenticated %}
+        <!-- Notification Bell  -->
+        <button class="btn rounded-circle btn-warning d-none d-lg-inline-block me-lg-2" type="button">
+          <i class="bi bi-bell-fill text-light"></i>
+        </button>
 
-      <div class="d-lg-none d-flex justify-content-start m-3 gap-2">
+        <!-- Profile Icon  -->
+        <button class="btn rounded-circle btn-primary d-none d-lg-inline-block" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+          <i class="bi bi-person-fill"></i>
+        </button>
+      {% else %}
+        <div class="d-flex gap-2">
+          <a class="btn btn-primary" href="{% url 'login' %}">Login</a>
+          <a class="btn btn-primary" href="{% url 'register' %}">Sign up</a>
+        </div>  
+      {% endif %}
+
+      <!-- <div class="d-lg-none d-flex justify-content-start m-3 gap-2">
         <button type="button" class="btn btn-primary">Large button</button>
         <button type="button" class="btn btn-secondary">Large button</button>
-      </div>
+      </div> -->
       
     </div>
   </div>
