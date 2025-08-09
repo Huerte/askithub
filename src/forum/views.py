@@ -93,8 +93,8 @@ def add_question(request):
 
         new_question = QuestionThread(created_by=request.user, title=title, topic=topic_instance, body=body)
         new_question.save()
-    
-    return redirect('homepage')
+
+    return redirect(f"{request.META.get('HTTP_REFERER', '/')}?success=1")
 
 @login_required(login_url='/auth/login/')
 def delete_question(request, room_id):

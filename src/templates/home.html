@@ -43,8 +43,8 @@
                                                 </div>
 
                                                 <div class="col d-flex justify-content-end mt-2">
-                                                    <i class="bi bi-eye-fill me-2"> {{ question.seen_numbers }} </i>
-                                                    <i class="bi bi-chat-left-fill">{{ question.answers_count }}</i>
+                                                    <i class="bi bi-eye-fill me-2"></i><p>{{ question.seen_numbers }}</p>
+                                                    <i class="bi bi-chat-left-fill ms-4 me-2"></i><p>{{ question.answers_count }}</p>
                                                 </div>
                                             </div>
                                             
@@ -66,6 +66,7 @@
         </div>
     </div>
 
+    <!-- Update Profile Modal -->
     <button type="button" class="btn btn-primary position-fixed bottom-0 end-0 m-4 px-3 py-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
         <i class="bi bi-chat-left-text"></i> <span class="ms-2">Ask Question</span>
     </button>
@@ -99,32 +100,35 @@
         </div>
     </div>
 
-    <!-- <button type="button" class="btn btn-primary" id="liveToastBtn">Show live toast</button>
-
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <!-- Success Notification -->
+    <div class="toast-container position-fixed bottom-0 end-0 px-2 py-2">
         <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
-                <img src="#" class="rounded me-2" alt="#">
-                <strong class="me-auto">Bootstrap</strong>
-                <small>11 mins ago</small>
+                <strong class="me-auto"><i class="bi bi-check-circle text-success me-2"></i>AskItHub</strong>
+                <!-- <small>11 mins ago</small> -->
                 <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
             <div class="toast-body">
-                Hello, world! This is a toast message.
+                </i> Question Created Successtfully
             </div>
         </div>
     </div>
 
-<script>
-    const toastTrigger = document.getElementById('liveToastBtn')
-    const toastLiveExample = document.getElementById('liveToast')
+    {% if request.GET.success %}
+        <script>
+            // This eventListener is used to securely run
+            //  the function if all html elements are already 
+            // loaded before running to avoid null in getting elements
+            document.addEventListener('DOMContentLoaded', function() {
+                const toastBootstrap = bootstrap.Toast.getOrCreateInstance(document.getElementById('liveToast'));
+                toastBootstrap.show();
 
-    if (toastTrigger) {
-        const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-        toastTrigger.addEventListener('click', () => {
-            toastBootstrap.show()
-        })
-    }
-</script> -->
+                // This below help to avoid showing the same notification if the page reloaded
+                const url = new URL(window.location);
+                url.searchParams.delete('success');
+                window.history.replaceState({}, document.title, url);
+            })
+        </script>
+    {%  endif %}
 
 {% endblock %}
