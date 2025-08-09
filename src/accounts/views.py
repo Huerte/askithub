@@ -88,6 +88,10 @@ def update_profile(request):
         if bio:
             profile.bio = bio
 
+        location = request.POST.get('location')
+        if location:
+            profile.location = location
+            
         profile.save()
 
     return redirect(request.META.get('HTTP_REFERER', '/'))
