@@ -32,6 +32,40 @@
   @media (max-width: 991.98px) {
     .hero-cta { gap: .5rem; }
   }
+
+  /* Modal styling to match profile-page */
+  .modal-content {
+    background: linear-gradient(135deg, #0b1220 0%, #0f172a 100%);
+    color: #e9ecef;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+  }
+  
+  .modal-header {
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  
+  .modal-footer {
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  
+  .form-control {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #e9ecef;
+    border-radius: 10px;
+  }
+  
+  .form-control:focus {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(13,110,253,0.5);
+    box-shadow: 0 0 0 0.2rem rgba(13,110,253,0.25);
+    color: #e9ecef;
+  }
+  
+  .form-control::placeholder {
+    color: rgba(255,255,255,0.6);
+  }
 </style>
 {% endblock %}
 

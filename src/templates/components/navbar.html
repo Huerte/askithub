@@ -1,56 +1,68 @@
-<nav class="navbar navbar-expand-lg navbar-dark px-2 md-5 p-3" style="background: linear-gradient(135deg, #0b1220 0%, #0f172a 50%, #121826 100%); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.1);">
-  <div class="container-fluid">
-    <a class="navbar-brand h1 fw-bold" href="{% url 'homepage' %}" style="background: linear-gradient(135deg, #0d6efd, #198754); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
-      <i class="bi bi-question-circle-fill me-2"></i>AskItHub
+{% load static %}
+
+<nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(135deg, #0b1220 0%, #0f172a 50%, #121826 100%); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.1);">
+  <div class="container">
+    <!-- Brand -->
+    <a class="navbar-brand fw-bold d-flex align-items-center" href="{% url 'homepage' %}" style="font-size: 1.5rem; background: linear-gradient(135deg, #0d6efd, #198754); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+      <i class="bi bi-chat-left-text-fill me-2"></i>AskItHub
     </a>
-    
-    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+
+    <!-- Toggle Button -->
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="border: 1px solid rgba(255,255,255,0.2); border-radius: 8px;">
       <span class="navbar-toggler-icon"></span>
     </button>
-    
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+    <!-- Navigation Links -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link active fw-semibold" aria-current="page" href="{% url 'homepage' %}">
-            <i class="bi bi-house-fill me-1"></i>Home
+          <a class="nav-link px-3 py-2 rounded-pill" href="{% url 'homepage' %}" style="transition: all 0.3s ease; border-radius: 25px;">
+            <i class="bi bi-house-door me-2"></i>Home
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link fw-semibold" href="{% url 'all_room' %}">
-            <i class="bi bi-compass me-1"></i>Explore
+          <a class="nav-link px-3 py-2 rounded-pill" href="{% url 'all_room' %}" style="transition: all 0.3s ease; border-radius: 25px;">
+            <i class="bi bi-compass me-2"></i>Explore
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link fw-semibold" href="{% url 'about_page' %}">
-            <i class="bi bi-info-circle me-1"></i>About
+          <a class="nav-link px-3 py-2 rounded-pill" href="#" style="transition: all 0.3s ease; border-radius: 25px;">
+            <i class="bi bi-tags me-2"></i>Topics
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link px-3 py-2 rounded-pill" href="{% url 'about_page' %}" style="transition: all 0.3s ease; border-radius: 25px;">
+            <i class="bi bi-info-circle me-2"></i>About
           </a>
         </li>
       </ul>
 
-      <!-- Enhanced Search bar -->
-      <form method="POST" action="{% url 'search' %}" class="d-flex mx-3" role="search">
-        {% csrf_token %}
-        <div class="input-group" style="max-width: 400px;">
-          <input class="form-control border-0" type="search" placeholder="Search questions..." aria-label="Search" name="search_word" style="background: rgba(255,255,255,0.1); color: white; border-radius: 25px 0 0 25px;"/>
-          <button class="btn btn-primary border-0" type="submit" style="border-radius: 0 25px 25px 0; background: linear-gradient(135deg, #0d6efd, #198754);">
-            <i class="bi bi-search"></i>
+      <!-- User Actions -->
+      {% if user and user.is_authenticated %}
+        <div class="d-flex align-items-center gap-3">
+          <!-- Search Bar -->
+          <form class="d-flex me-3" role="search" action="{% url 'search' %}" method="GET">
+            <div class="input-group" style="width: 300px;">
+              <input class="form-control" type="search" name="q" placeholder="Search questions..." aria-label="Search" style="border-radius: 25px 0 0 25px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: white;">
+              <button class="btn btn-primary" type="submit" style="border-radius: 0 25px 25px 0; background: linear-gradient(135deg, #0d6efd, #198754); border: none;">
+                <i class="bi bi-search"></i>
+              </button>
+            </div>
+          </form>
+
+          <!-- Notification Bell -->
+          <button class="btn rounded-circle btn-outline-light position-relative" type="button" style="width: 45px; height: 45px; border: 1px solid rgba(255,255,255,0.3);">
+            <i class="bi bi-bell"></i>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6rem;">
+              3
+            </span>
+          </button>
+
+          <!-- Enhanced Profile Icon -->
+          <button class="btn rounded-circle btn-primary d-none d-lg-inline-block" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" style="width: 45px; height: 45px; background: linear-gradient(135deg, #0d6efd, #198754); box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);">
+            <i class="bi bi-person-fill"></i>
           </button>
         </div>
-      </form>
-
-      {% if request.user.is_authenticated %}
-        <!-- Enhanced Notification Bell -->
-        <button class="btn rounded-circle btn-warning d-none d-lg-inline-block me-lg-2 position-relative" type="button" style="width: 45px; height: 45px; box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);">
-          <i class="bi bi-bell-fill text-light"></i>
-          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6rem;">
-            3
-          </span>
-        </button>
-
-        <!-- Enhanced Profile Icon -->
-        <button class="btn rounded-circle btn-primary d-none d-lg-inline-block" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" style="width: 45px; height: 45px; background: linear-gradient(135deg, #0d6efd, #198754); box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);">
-          <i class="bi bi-person-fill"></i>
-        </button>
       {% else %}
         <div class="d-flex gap-2">
           <a class="btn btn-outline-light" href="{% url 'login' %}" style="border-radius: 25px; padding: 0.5rem 1.5rem;">
@@ -81,7 +93,7 @@
         <i class="bi bi-person-circle text-primary" style="font-size: 3rem;"></i>
       </div>
       <h6 class="mb-1 fw-bold">@{{ request.user.username }}</h6>
-      <small class="text-muted">{{ request.user.email }}</small>
+      <small class="text-secondary">{{ request.user.email }}</small>
     </div>
 
     <!-- Profile Actions -->
@@ -143,3 +155,39 @@
     </div>
   </div>
 </div>
+
+<style>
+  /* Modal styling to match profile-page */
+  .modal-content {
+    background: linear-gradient(135deg, #0b1220 0%, #0f172a 100%);
+    color: #e9ecef;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+  }
+  
+  .modal-header {
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  
+  .modal-footer {
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  
+  .form-control {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #e9ecef;
+    border-radius: 10px;
+  }
+  
+  .form-control:focus {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(13,110,253,0.5);
+    box-shadow: 0 0 0 0.2rem rgba(13,110,253,0.25);
+    color: #e9ecef;
+  }
+  
+  .form-control::placeholder {
+    color: rgba(255,255,255,0.6);
+  }
+</style>
