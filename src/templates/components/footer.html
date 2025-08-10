@@ -1,3 +1,138 @@
-<footer class="bg-dark text-white text-center py-4">
-  &copy; 2025 AskItHub
+<footer class="text-white py-5" style="background: linear-gradient(135deg, #0b1220 0%, #0f172a 50%, #121826 100%); border-top: 1px solid rgba(255,255,255,0.1);">
+  <div class="container">
+    <div class="row g-4">
+      <!-- Brand Section -->
+      <div class="col-12 col-lg-4">
+        <div class="mb-4">
+          <h4 class="fw-bold mb-3" style="background: linear-gradient(135deg, #0d6efd, #198754); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+            <i class="bi bi-question-circle-fill me-2"></i>AskItHub
+          </h4>
+          <p class="text-light mb-3">Your go-to platform for asking questions, sharing knowledge, and building a community of learners and experts.</p>
+          <div class="d-flex gap-3">
+            <a href="#" class="btn btn-outline-light rounded-circle" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+              <i class="bi bi-twitter"></i>
+            </a>
+            <a href="#" class="btn btn-outline-light rounded-circle" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+              <i class="bi bi-linkedin"></i>
+            </a>
+            <a href="#" class="btn btn-outline-light rounded-circle" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+              <i class="bi bi-github"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="col-12 col-lg-2">
+        <h6 class="fw-bold mb-3 text-light">Quick Links</h6>
+        <ul class="list-unstyled">
+          <li class="mb-2">
+            <a href="{% url 'homepage' %}" class="text-light text-decoration-none hover-light">
+              <i class="bi bi-house me-2"></i>Home
+            </a>
+          </li>
+          <li class="mb-2">
+            <a href="{% url 'all_room' %}" class="text-light text-decoration-none hover-light">
+              <i class="bi bi-compass me-2"></i>Explore
+            </a>
+          </li>
+          <li class="mb-2">
+            <a href="{% url 'about_page' %}" class="text-light text-decoration-none hover-light">
+              <i class="bi bi-info-circle me-2"></i>About
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Community -->
+      <div class="col-12 col-lg-2">
+        <h6 class="fw-bold mb-3 text-light">Community</h6>
+        <ul class="list-unstyled">
+          <li class="mb-2">
+            <a href="#" class="text-light text-decoration-none hover-light">
+              <i class="bi bi-people me-2"></i>Guidelines
+            </a>
+          </li>
+          <li class="mb-2">
+            <a href="#" class="text-light text-decoration-none hover-light">
+              <i class="bi bi-shield-check me-2"></i>Privacy
+            </a>
+          </li>
+          <li class="mb-2">
+            <a href="#" class="text-light text-decoration-none hover-light">
+              <i class="bi bi-file-text me-2"></i>Terms
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Support -->
+      <div class="col-12 col-lg-2">
+        <h6 class="fw-bold mb-3 text-light">Support</h6>
+        <ul class="list-unstyled">
+          <li class="mb-2">
+            <a href="#" class="text-light text-decoration-none hover-light">
+              <i class="bi bi-question-circle me-2"></i>Help Center
+            </a>
+          </li>
+          <li class="mb-2">
+            <a href="#" class="text-light text-decoration-none hover-light">
+              <i class="bi bi-envelope me-2"></i>Contact Us
+            </a>
+          </li>
+          <li class="mb-2">
+            <a href="#" class="text-light text-decoration-none hover-light">
+              <i class="bi bi-bug me-2"></i>Report Issue
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Newsletter -->
+      <div class="col-12 col-lg-2">
+        <h6 class="fw-bold mb-3 text-light">Stay Updated</h6>
+        <p class="text-light small mb-3">Get the latest updates and features</p>
+        <div class="input-group">
+          <input type="email" class="form-control form-control-sm" placeholder="Your email" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white;">
+          <button class="btn btn-primary btn-sm" type="button" style="background: linear-gradient(135deg, #0d6efd, #198754); border: none;">
+            <i class="bi bi-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Section -->
+    <div class="border-top border-secondary pt-4 mt-4">
+      <div class="row align-items-center">
+        <div class="col-12 col-md-6">
+          <p class="text-light mb-0 small">
+            &copy; 2025 AskItHub. All rights reserved.
+          </p>
+        </div>
+        <div class="col-12 col-md-6 text-md-end">
+          <p class="text-light mb-0 small">
+            Made with <i class="bi bi-heart-fill text-danger"></i> for the community
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 </footer>
+
+<style>
+  .hover-light:hover {
+    color: #e9ecef !important;
+    transition: color 0.3s ease;
+  }
+  
+  .form-control::placeholder {
+    color: rgba(255,255,255,0.6) !important;
+  }
+  
+  .form-control:focus {
+    background: rgba(255,255,255,0.15) !important;
+    border-color: rgba(13, 110, 253, 0.5) !important;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25) !important;
+    color: white !important;
+  }
+</style>
