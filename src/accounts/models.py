@@ -60,5 +60,8 @@ class UserActivity(models.Model):
 
     timestamp = models.DateTimeField(auto_now_add=True)
 
+    def get_activity_type(self):
+        return self.get_activity_type_display()
+
     def __str__(self):
         return f'{self.user.username} -> {self.get_activity_type_display()}'

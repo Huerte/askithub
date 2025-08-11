@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout
 from django.views.decorators.csrf import requires_csrf_token
 from django.contrib.auth.decorators import login_required
-from .models import UserStatus, Profile, UserActivity
+from .models import UserStatus, Profile, UserActivity, Answer
 from django.utils import timezone
 from forum.models import QuestionThread
 
@@ -103,10 +103,17 @@ def visit_profile(request, user_id):
     user = User.objects.get(id=user_id)
     profile, _ = Profile.objects.get_or_create(user=user)
     user_status, _ = UserStatus.objects.get_or_create(user=user)
+    user_activity= UserActivity.objects.filter(user=user)
+    
     try:
         users_questions = QuestionThread.objects.filter(created_by=user)
     except QuestionThread.DoesNotExist:
         users_questions = None
+
+    try:
+        user_answers = Answer.objects.filter(answer_by=user)
+    except Answer.DoesNotExist:
+        user_answers = None
 
     is_followed = False
     if request.user != user:
@@ -116,12 +123,11 @@ def visit_profile(request, user_id):
         'profile': profile,
         'user_status': user_status,
         'users_questions': sorted(users_questions, key=lambda users_questions: users_questions.created_at),
-        'questions_count': len(users_questions),
+        'user_answers': user_answers,
         'following': profile.following.all(),
-        'following_count': profile.following.count(),
         'followers': profile.followers.all(),
-        'followers_count': profile.followers.count(),
         'is_followed': is_followed,
+        'user_activity': user_activity,
     }
 
     return render(request, 'section/profile-page.html', context)
