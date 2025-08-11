@@ -14,6 +14,11 @@ class ProfileAdmin(admin.ModelAdmin):
     search_fields = ('user__username', 'location')
 
 
+class UserActivityAdmin(admin.ModelAdmin):
+    list_display = ('user', 'activity_type')
+    list_filter = ('activity_type',)
+    search_fields = ('user__username', 'activity_type')
+
 admin.site.register(UserStatus, UserStatusAdmin)
 admin.site.register(Profile, ProfileAdmin)
-admin.site.register(UserActivity)
+admin.site.register(UserActivity, UserActivityAdmin)

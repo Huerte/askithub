@@ -36,16 +36,21 @@ class Profile(models.Model):
 
 
 class UserActivity(models.Model):
-
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    FOLLOWED_USER = 'followed_user'
+    QUESTION_CREATED = 'question_created'
+    ANSWER_CREATED = 'answer_created'
+
+    ACTIVITY_TYPES = [
+        (FOLLOWED_USER, 'Followed User'),
+        (QUESTION_CREATED, 'Question Created'),
+        (ANSWER_CREATED, 'Answer Created'),
+    ]
 
     activity_type = models.CharField(
         max_length=100,
-        choices=[
-            ('followed_user', 'Followed User'),
-            ('question_created', 'Question Created'),
-            ('answer_created', 'Answer Created'),
-        ]
+        choices=ACTIVITY_TYPES,
     )
 
     question = models.ForeignKey(QuestionThread, on_delete=models.CASCADE, null=True, blank=True)
@@ -56,4 +61,4 @@ class UserActivity(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.user.username}'
+        return f'{self.user.username} -> {self.get_activity_type_display()}'

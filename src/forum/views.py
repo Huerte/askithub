@@ -6,6 +6,7 @@ from django.http import JsonResponse
 from accounts.views import update_user_status
 from django.contrib.auth import get_user_model
 from django.db import models
+from accounts.models import UserActivity
 
 
 def homepage_view(request):
@@ -83,6 +84,13 @@ def comment(request, room_id):
         answer = Answer(answer_by=request.user, answer=comment, question=question)
         answer.save()
 
+        user_activity = UserActivity.objects.create(
+            user=request.user,
+            activity_type=UserActivity.ANSWER_CREATED,
+            answer=answer,
+        )
+        user_activity.save()
+
     return redirect('enter_room', room_id=room_id)
 
 @login_required(login_url='/auth/login/')
@@ -113,6 +121,14 @@ def add_question(request):
 
         new_question = QuestionThread(created_by=request.user, title=title, topic=topic_instance, body=body)
         new_question.save()
+
+        user_activity = UserActivity.objects.create(
+            user=request.user,
+            activity_type=UserActivity.QUESTION_CREATED,
+            question=new_question,
+        )
+        user_activity.save()
+
 
     return redirect(f"{request.META.get('HTTP_REFERER', '/')}?success=1")
 
