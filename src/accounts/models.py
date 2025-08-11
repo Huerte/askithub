@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from forum.models import QuestionThread, Answer
 
 class UserStatus(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -30,6 +30,30 @@ class Profile(models.Model):
         related_name='followers',
         blank=True,
     )
+
+    def __str__(self):
+        return f'{self.user.username}'
+
+
+class UserActivity(models.Model):
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    activity_type = models.CharField(
+        max_length=100,
+        choices=[
+            ('followed_user', 'Followed User'),
+            ('question_created', 'Question Created'),
+            ('answer_created', 'Answer Created'),
+        ]
+    )
+
+    question = models.ForeignKey(QuestionThread, on_delete=models.CASCADE, null=True, blank=True)
+    answer = models.ForeignKey(Answer, on_delete=models.CASCADE, null=True, blank=True)
+
+    followed_user = models.ForeignKey(Profile, related_name='follow_activities', on_delete=models.CASCADE, null=True, blank=True)
+
+    timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f'{self.user.username}'
