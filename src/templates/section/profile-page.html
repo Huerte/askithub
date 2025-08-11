@@ -209,7 +209,7 @@
               {% if profile.bio %}
                 <p class="mb-0">{{ profile.bio }}</p>
               {% else %}
-                <p class="mb-0 text-muted">No bio available</p>
+                <p class="mb-0 text-secondary">No bio available</p>
               {% endif %}
             </div>
             
@@ -264,13 +264,13 @@
             <div class="row g-3">
               <div class="col-6">
                 <div class="text-center p-3 rounded" style="background: rgba(13,110,253,0.1);">
-                  <div class="stats-number">{{ following_count }}</div>
+                  <div class="stats-number">{{ following|length }}</div>
                   <small class="text-muted">Following</small>
                 </div>
               </div>
               <div class="col-6">
                 <div class="text-center p-3 rounded" style="background: rgba(25,135,84,0.1);">
-                  <div class="stats-number">{{ followers_count }}</div>
+                  <div class="stats-number">{{ followers|length }}</div>
                   <small class="text-muted">Followers</small>
                 </div>
               </div>
@@ -293,13 +293,13 @@
             <div class="row g-3">
               <div class="col-6">
                 <div class="text-center p-3 rounded" style="background: rgba(13,110,253,0.1);">
-                  <div class="stats-number">45</div>
+                  <div class="stats-number">{{ users_questions|length }}</div>
                   <small class="text-muted">Questions</small>
                 </div>
               </div>
               <div class="col-6">
                 <div class="text-center p-3 rounded" style="background: rgba(25,135,84,0.1);">
-                  <div class="stats-number">85</div>
+                  <div class="stats-number">{{ user_answers|length }}</div>
                   <small class="text-muted">Answers</small>
                 </div>
               </div>
@@ -319,10 +319,18 @@
               <i class="bi bi-clock-history text-warning me-3" style="font-size: 1.5rem;"></i>
               <h5 class="mb-0">Recent</h5>
             </div>
-            <div class="text-center">
-              <i class="bi bi-clock text-muted" style="font-size: 3rem;"></i>
-              <p class="text-muted mt-2">No recent activity</p>
-            </div>
+              {% if user_activity %}
+                {% for activity in user_activity %}
+                  <div class="card p-2 mb-3">
+                    <a href="#" class="text-decoration-none text-dark"> {{ activity.get_activity_type }} </a>
+                  </div>
+                {% endfor %}
+              {% else %}
+                <div class="text-center">
+                  <i class="bi bi-clock text-muted" style="font-size: 3rem;"></i>
+                  <p class="text-muted mt-2">No recent activity</p>
+                </div>
+              {% endif %}
             <div class="mt-3">
               <a href="#" class="btn btn-outline-warning btn-sm w-100">
                 <i class="bi bi-arrow-right me-2"></i>View History
