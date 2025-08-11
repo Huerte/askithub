@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout
 from django.views.decorators.csrf import requires_csrf_token
 from django.contrib.auth.decorators import login_required
-from .models import UserStatus, Profile
+from .models import UserStatus, Profile, UserActivity
 from django.utils import timezone
 from forum.models import QuestionThread
 
@@ -141,6 +141,14 @@ def follow_user(request, user_id):
     target_profile, _ = Profile.objects.get_or_create(user=user)
 
     my_profile.following.add(target_profile)
+
+
+    user_activity = UserActivity.objects.create(
+        user=my_profile,
+        activity_type=UserActivity.FOLLOWED_USER,
+        followed_user=target_profile,
+    )
+    user_activity.save()
 
     return redirect(request.META.get('HTTP_REFERER', '/'))
 
