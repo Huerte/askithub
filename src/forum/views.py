@@ -178,9 +178,9 @@ def visit_topics(request, topic_id):
 
 def search_page(request):
 
-    if request.method == 'POST':
+    if request.method == 'GET':
 
-        search_query = request.POST.get('search_word')
+        search_query = request.GET.get('search_word')
 
         if not search_query or search_query.strip() == "":
             return redirect(request.META.get('HTTP_REFERER', '/'))
