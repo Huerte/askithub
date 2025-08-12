@@ -171,7 +171,6 @@ def visit_topics(request, topic_id):
     context = {
         'questions': questions,
         'topic': topic,
-        'total_question': len(questions)
     }
 
     return render(request, 'section/topics-page.html', context)
