@@ -263,16 +263,20 @@
             </div>
             <div class="row g-3">
               <div class="col-6">
-                <div class="text-center p-3 rounded" style="background: rgba(13,110,253,0.1);">
-                  <div class="stats-number">{{ following|length }}</div>
-                  <small class="text-muted">Following</small>
-                </div>
+                <a href="{% url 'visit_following' profile.user.id %}" class="text-decoration-none">
+                  <div class="text-center p-3 rounded" style="background: rgba(13,110,253,0.1);">
+                    <div class="stats-number">{{ following|length }}</div>
+                    <small class="text-muted">Following</small>
+                  </div>
+                </a>
               </div>
               <div class="col-6">
-                <div class="text-center p-3 rounded" style="background: rgba(25,135,84,0.1);">
-                  <div class="stats-number">{{ followers|length }}</div>
-                  <small class="text-muted">Followers</small>
-                </div>
+                <a href="{% url 'visit_followers' profile.user.id %}" class="text-decoration-none">
+                  <div class="text-center p-3 rounded" style="background: rgba(25,135,84,0.1);">
+                    <div class="stats-number">{{ followers|length }}</div>
+                    <small class="text-muted">Followers</small>
+                  </div>
+                </a>
               </div>
             </div>
             <div class="mt-3">
