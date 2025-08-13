@@ -21,4 +21,6 @@ urlpatterns = [
     path('followers/<str:user_id>', views.view_followers, name='visit_followers'),
     path('following/<str:user_id>', views.view_following, name='visit_following'),
 
+    path('settings/', views.enter_settings, name='enter_settings'),
+
 ]
