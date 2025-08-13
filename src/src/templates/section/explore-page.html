@@ -1,0 +1,271 @@
+{% extends 'base.html' %}
+
+{% block css %}
+<style>
+  .explore-hero {
+    background: radial-gradient(1200px 400px at 10% -20%, rgba(13,110,253,.25), transparent 50%),
+                radial-gradient(1000px 400px at 110% 0%, rgba(25,135,84,.25), transparent 50%),
+                linear-gradient(180deg, #0b1220 0%, #0f172a 50%, #121826 100%);
+    color: #e9ecef;
+  }
+  .explore-hero .display-title { letter-spacing: .5px; }
+  .explore-hero .lead { color: #cbd5e1; }
+
+  .topic-filter {
+    background: rgba(255,255,255,.95);
+    border: 1px solid rgba(255,255,255,.1);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    transition: transform .15s ease, box-shadow .2s ease;
+  }
+  .topic-filter:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(0,0,0,.1);
+  }
+
+  .question-card {
+    background: rgba(255,255,255,.95);
+    border: 1px solid rgba(255,255,255,.1);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    transition: transform .15s ease, box-shadow .2s ease;
+    border-left: 4px solid #0d6efd;
+  }
+  .question-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(0,0,0,.15);
+    border-left-color: #198754;
+  }
+
+  .question-meta {
+    color: #64748b;
+    font-size: .9rem;
+  }
+
+  .topic-badge {
+    background: linear-gradient(135deg, #0d6efd, #198754);
+    color: white;
+    border-radius: 20px;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  .section-header { color: #e2e8f0; }
+  .soft-bg { background: #f8fafc; }
+  .text-muted { color: #64748b !important; }
+
+  .filter-section {
+    background: linear-gradient(135deg, rgba(13,110,253,.05), rgba(25,135,84,.05));
+    border-radius: 20px;
+    padding: 2rem;
+    margin: 2rem 0;
+  }
+
+  .filter-btn {
+    background: linear-gradient(135deg, #0d6efd, #198754);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);
+  }
+
+  .filter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(13, 110, 253, 0.4);
+    color: white;
+  }
+
+  .filter-btn.active {
+    background: linear-gradient(135deg, #198754, #0d6efd);
+    box-shadow: 0 6px 20px rgba(25, 135, 132, 0.4);
+  }
+
+  .filter-btn.outline {
+    background: transparent;
+    color: #0d6efd;
+    border: 2px solid #0d6efd;
+    box-shadow: none;
+  }
+
+  .filter-btn.outline:hover {
+    background: #0d6efd;
+    color: white;
+    box-shadow: 0 6px 20px rgba(13, 110, 253, 0.4);
+  }
+
+  .empty-state {
+    background: rgba(255,255,255,.95);
+    border-radius: 16px;
+    padding: 3rem;
+    text-align: center;
+    border: 2px dashed #dee2e6;
+  }
+
+  @media (max-width: 991.98px) {
+    .filter-section { padding: 1.5rem; }
+    .filter-btn { padding: 0.6rem 1.2rem; font-size: 0.9rem; }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+  <!-- Hero Section -->
+  <section class="explore-hero py-5 py-lg-6">
+    <div class="container">
+      <div class="row justify-content-center text-center g-4 py-4">
+        <div class="col-12 col-lg-8">
+          <h1 class="display-4 display-title fw-bold mb-3">Explore Questions</h1>
+          <p class="lead mb-4">Discover knowledge from our community</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filter Section -->
+  <section class="py-4">
+    <div class="container">
+      <div class="filter-section">
+        <div class="row align-items-center">
+          <div class="col-12 col-md-6">
+            <h3 class="h4 mb-3 text-dark">Filter by Topics</h3>
+            <p class="text-muted mb-0">Click on a topic to filter questions</p>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="d-flex flex-wrap gap-3 justify-content-md-end">
+              <a href="{% url 'all_room' %}" class="btn filter-btn outline">
+                <i class="bi bi-funnel me-2"></i>All Questions
+              </a>
+              {% for topic in top_topics %}
+                <a href="{% url 'visit_related_topics' topic.id %}" class="btn filter-btn">
+                  #{{ topic.name }} ({{ topic.question_count }})
+                </a>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Questions Section -->
+  <section class="py-4">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="h3 mb-0 text-dark">All Questions</h2>
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+          <i class="bi bi-plus-circle me-2"></i>Ask Question
+        </button>
+      </div>
+
+      {% if all_questions %}
+        <div class="row g-4">
+          {% for question in all_questions %}
+            <div class="col-12">
+              <div class="question-card p-4 shadow-sm">
+                <div class="row">
+                  <div class="col-12 col-lg-8">
+                    <div class="d-flex align-items-start justify-content-between mb-2">
+                      <h4 class="h5 mb-0">
+                        <a href="{% url 'enter_room' question.id %}" class="text-decoration-none text-dark">
+                          {{ question.title }}
+                        </a>
+                      </h4>
+                      <span class="topic-badge">{{ question.topic.name }}</span>
+                    </div>
+                    
+                    {% if question.body %}
+                      <p class="text-muted mb-3">{{ question.body|truncatechars:150 }}</p>
+                    {% endif %}
+                    
+                    <div class="d-flex align-items-center gap-4 question-meta">
+                      <span class="d-flex align-items-center">
+                        <i class="bi bi-person-circle me-2"></i>
+                        @{{ question.created_by.username }}
+                      </span>
+                      <span class="d-flex align-items-center">
+                        <i class="bi bi-calendar3 me-2"></i>
+                        {{ question.created_at|timesince }} ago
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <div class="col-12 col-lg-4">
+                    <div class="d-flex justify-content-lg-end gap-3 mt-3 mt-lg-0">
+                      <div class="text-center">
+                        <div class="d-flex align-items-center justify-content-center mb-1">
+                          <i class="bi bi-eye-fill text-primary me-2"></i>
+                          <span class="fw-bold">{{ question.seen_numbers }}</span>
+                        </div>
+                        <small class="text-muted">Views</small>
+                      </div>
+                      <div class="text-center">
+                        <div class="d-flex align-items-center justify-content-center mb-1">
+                          <i class="bi bi-chat-left-text-fill text-success me-2"></i>
+                          <span class="h5 text-success mb-0">{{ question.answers_count }}</span>
+                        </div>
+                        <small class="text-muted">Answers</small>
+                      </div>
+                    </div>
+                    
+                    <div class="mt-3">
+                      <a href="{% url 'enter_room' question.id %}" class="btn btn-outline-primary btn-sm w-100">
+                        <i class="bi bi-arrow-right-circle me-2"></i>View Discussion
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="empty-state">
+          <i class="bi bi-question-circle text-muted" style="font-size: 4rem;"></i>
+          <h3 class="h4 mt-3 text-muted">No Questions Found</h3>
+          <p class="text-muted mb-4">Be the first to ask a question and start a discussion!</p>
+          <button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <i class="bi bi-plus-circle me-2"></i>Ask Your First Question
+          </button>
+        </div>
+      {% endif %}
+    </div>
+  </section>
+
+  <!-- Ask Question Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Ask Question</h1>
+          <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="{% url 'add_question' %}" method="POST">
+          {% csrf_token %}
+          <div class="modal-body">
+            <input type="text" name="title" placeholder="Question Title" class="form-control mb-3" required>
+            <input class="form-control mb-3" name="topic" list="datalistOptions" id="exampleDataList" placeholder="Topic..." required>
+            <datalist id="datalistOptions">
+              {% for topic in topics %}
+                <option value="{{ topic.name }}">
+              {% endfor %}
+            </datalist>
+            <textarea class="form-control" placeholder="Question Details (optional)" name="body" rows="4"></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">
+              <i class="bi bi-send-plus me-2"></i>Ask Question
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
