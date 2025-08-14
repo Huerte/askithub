@@ -49,28 +49,7 @@
               </button>
             </div>
           </form>
-
-          <!-- Notification Bell -->
-          <div class="dropdown">
-            <button 
-              class="btn rounded-circle btn-outline-light position-relative" 
-              type="button" 
-              style="width: 45px; height: 45px; border: 1px solid rgba(255,255,255,0.3);" 
-              data-bs-toggle="dropdown" 
-              aria-expanded="false">
-              <i class="bi bi-bell"></i>
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6rem;">
-                3
-              </span>
-            </button>
-
-            <ul class="dropdown-menu dropdown-menu-end">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </div>
-
+          
           <!-- Profile Icon -->
           <button class="btn rounded-circle btn-primary d-none d-lg-inline-block" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" style="width: 45px; height: 45px; background: linear-gradient(135deg, #0d6efd, #198754); box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);">
             <i class="bi bi-person-fill"></i>
@@ -113,10 +92,6 @@
     <div class="d-grid gap-3 mb-4">
       <a href="{% url 'visit_profile' request.user.id %}" class="btn btn-primary" style="border-radius: 15px; background: linear-gradient(135deg, #0d6efd, #198754); border: none;">
         <i class="bi bi-person-circle me-2"></i>View Profile
-      </a>
-      
-      <a href="{% url 'enter_settings' %}" class="btn btn-outline-warning" style="border-radius: 15px;">
-        <i class="bi bi-gear me-2"></i>Settings
       </a>
     </div>
 
