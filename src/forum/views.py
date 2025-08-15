@@ -25,6 +25,7 @@ def comment(request, room_id):
             user=request.user,
             activity_type=UserActivity.ANSWER_CREATED,
             answer=answer,
+            question=question,
         )
         user_activity.save()
 

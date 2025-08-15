@@ -305,7 +305,7 @@
               </div>
             </div>
             <div class="mt-3">
-              <a href="#" class="btn btn-outline-success btn-sm w-100">
+              <a href="{% url 'view_user_activities' profile.user.id %}" class="btn btn-outline-success btn-sm w-100">
                 <i class="bi bi-arrow-right me-2"></i>View Activity
               </a>
             </div>
@@ -323,8 +323,18 @@
             <div class="overflow-auto" style="max-height: 150px;">
               {% if user_activity %}
                 {% for activity in user_activity %}
-                  <div class="card p-2 mb-3">
-                    <a href="#" class="text-decoration-none text-dark"> {{ activity.get_activity_type }} </a>
+                  <div class="card py-3 px-2 mb-3">
+                    {% if activity.activity_type == activity.FOLLOWED_USER %}
+                      <a href="#" class="text-decoration-none text-dark"> Followed {{ activity.followed_user }} </a>
+                    {% elif activity.activity_type == activity.QUESTION_CREATED %}
+                      <a href="#" class="text-decoration-none text-dark"> Created Question:</a>
+                      <hr>
+                      <p class="ms-4">{{ activity.question.title }}</p>
+                    {% else %}
+                      <a href="#" class="text-decoration-none text-dark"> Answered to a question: {{ activity.question.title }}... </a>
+                      <hr>
+                      <p class="ms-4 mt-2"> Answer: {{ activity.get_answer_display }}... </p>
+                    {% endif %}
                   </div>
                 {% endfor %}
               {% else %}

@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from .models import UserStatus, Profile, UserActivity, Answer
 from django.utils import timezone
 from forum.models import QuestionThread
+from django.db.models import Q
 
 
 def login_view(request):
@@ -103,7 +104,9 @@ def visit_profile(request, user_id):
     user = User.objects.get(id=user_id)
     profile, _ = Profile.objects.get_or_create(user=user)
     user_status, _ = UserStatus.objects.get_or_create(user=user)
-    user_activity= UserActivity.objects.filter(user=user)
+
+    # This will reversed the list giving me a new to old order and get only atleast 4 items of the latest
+    user_activity = UserActivity.objects.filter(user=user)[::-1][:4]
     
     try:
         users_questions = QuestionThread.objects.filter(created_by=user)
@@ -195,3 +198,20 @@ def view_following(request, user_id):
     }
 
     return render(request, 'section/following-section.html', context)
+
+@login_required(login_url='/auth/login/')
+def view_user_activities(request, user_id):
+    user = User.objects.get(id=user_id)
+
+    questions = QuestionThread.objects.filter(
+        Q(created_by=user) | Q(answers__answer_by=user)
+    )
+    answers = Answer.objects.filter(answer_by=user)
+
+    context = {
+        'questions': questions,
+        'answers': answers,
+        'user': user
+    }
+
+    return render(request, 'section/user_activity.html', context)
