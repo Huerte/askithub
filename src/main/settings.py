@@ -20,6 +20,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'forum.apps.ForumConfig',
+    'core.apps.CoreConfig',
 
     'jazzmin',
 

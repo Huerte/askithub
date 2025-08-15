@@ -195,8 +195,3 @@ def view_following(request, user_id):
     }
 
     return render(request, 'section/following-section.html', context)
-
-@login_required(login_url='/auth/login/')
-def enter_settings(request):
-    context = {}
-    return render(request, 'section/settings-page.html', context)
