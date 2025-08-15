@@ -150,7 +150,7 @@ def follow_user(request, user_id):
 
 
     user_activity = UserActivity.objects.create(
-        user=my_profile,
+        user=request.user,
         activity_type=UserActivity.FOLLOWED_USER,
         followed_user=target_profile,
     )
