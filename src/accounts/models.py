@@ -62,6 +62,16 @@ class UserActivity(models.Model):
 
     def get_activity_type(self):
         return self.get_activity_type_display()
+    
+    def get_question_display(self):
+        if self.question:
+            return self.question.body[:30]
+        return 'Empty'
+    
+    def get_answer_display(self):
+        if self.answer:
+            return self.answer.answer[:30]
+        return 'Empty'
 
     def __str__(self):
         return f'{self.user.username} -> {self.get_activity_type_display()}'

@@ -34,6 +34,7 @@ class QuestionThread(models.Model):
     def seen_numbers(self):
         return self.seen_users.count()
 
+
 class Answer(models.Model):
     answer_by = models.ForeignKey(User, on_delete=models.CASCADE)
     answer = models.TextField(max_length=1000)
