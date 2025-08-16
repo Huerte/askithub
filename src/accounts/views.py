@@ -106,7 +106,7 @@ def visit_profile(request, user_id):
     user_status, _ = UserStatus.objects.get_or_create(user=user)
 
     # This will reversed the list giving me a new to old order and get only atleast 4 items of the latest
-    user_activity = UserActivity.objects.filter(user=user)[::-1][:4]
+    user_activity = UserActivity.objects.filter(user=user)[::-1][:10]
     
     try:
         users_questions = QuestionThread.objects.filter(created_by=user)
@@ -131,6 +131,7 @@ def visit_profile(request, user_id):
         'followers': profile.followers.all().count(),
         'is_followed': is_followed,
         'user_activity': user_activity,
+        'user_activity_active': any([activity.is_active for activity in user_activity])
     }
 
     return render(request, 'section/profile-page.html', context)
@@ -169,6 +170,11 @@ def unfollow_user(request, user_id):
     target_profile, _ = Profile.objects.get_or_create(user=user)
 
     my_profile.following.remove(target_profile)
+
+    user_activity = UserActivity.objects.get(followed_user=target_profile, is_active=True)
+    if user_activity:
+        user_activity.is_active = False
+        user_activity.save()
 
     return redirect(request.META.get('HTTP_REFERER', '/'))
 

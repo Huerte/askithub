@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block css %}
+<style>
+  .about-hero {
+    background: radial-gradient(1200px 400px at 10% -20%, rgba(13,110,253,.25), transparent 50%),
+                radial-gradient(1000px 400px at 110% 0%, rgba(25,135,84,.25), transparent 50%),
+                linear-gradient(180deg, #0b1220 0%, #0f172a 50%, #121826 100%);
+    color: #e9ecef;
+  }
+  .about-hero .display-title { letter-spacing: .5px; }
+  .about-hero .lead { color: #cbd5e1; }
+
+  .feature-card {
+    background: rgba(255,255,255,.95);
+    border: 1px solid rgba(255,255,255,.1);
+    backdrop-filter: blur(10px);
+    transition: transform .15s ease, box-shadow .2s ease;
+    border-radius: 16px;
+  }
+  .feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,.15);
+  }
+
+  .feature-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #0d6efd, #198754);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .stats-card {
+    background: linear-gradient(135deg, rgba(13,110,253,.1), rgba(25,135,84,.1));
+    border: 1px solid rgba(255,255,255,.1);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    transition: transform .15s ease;
+  }
+  .stats-card:hover {
+    transform: translateY(-3px);
+  }
+
+  .section-header { color: #e2e8f0; }
+  .soft-bg { background: #f8fafc; }
+  .text-muted { color: #64748b !important; }
+
+  .mission-section {
+    background: linear-gradient(135deg, rgba(13,110,253,.05), rgba(25,135,84,.05));
+    border-radius: 20px;
+    padding: 3rem;
+    margin: 2rem 0;
+  }
+
+  @media (max-width: 991.98px) {
+    .mission-section { padding: 2rem 1.5rem; }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+  <!-- Hero Section -->
+  <section class="about-hero py-5 py-lg-6">
+    <div class="container">
+      <div class="row justify-content-center text-center g-4 py-4">
+        <div class="col-12 col-lg-8">
+          <h1 class="display-4 display-title fw-bold mb-3">Explore Topics</h1>
+          <p class="lead mb-4">Over <strong>{{ topics|length }}</strong> topics are currently available here.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-4">
+    
+  </section>
+
+{% endblock %}
