@@ -23,29 +23,10 @@ def about_view(request):
     return render(request, 'section/about-page.html')
 
 def all_question_view(request):
-    # Get all questions with related data
     question_thread = QuestionThread.objects.select_related('created_by', 'topic').prefetch_related('answers').all().order_by('-created_at')
-    
-    # Get all topics for filtering
-    topics = Topic.objects.all()
-    
-    # Get some statistics
-    total_questions = question_thread.count()
-    total_answers = sum(q.answers.count() for q in question_thread)
-    total_users = get_user_model().objects.count()
-    
-    # Get top topics by question count
-    top_topics = Topic.objects.annotate(
-        question_count=models.Count('questionthread')
-    ).order_by('-question_count')[:5]
 
     context = {
         'all_questions': question_thread,
-        'topics': topics,
-        'top_topics': top_topics,
-        'total_questions': total_questions,
-        'total_answers': total_answers,
-        'total_users': total_users,
     }
 
     return render(request, 'section/explore-page.html', context)

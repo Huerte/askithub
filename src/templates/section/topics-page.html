@@ -104,8 +104,11 @@
                     <small class="text-muted">{{ question.created_at|timesince }} ago</small>
                   </div>
 
-                  <p class="question-text mb-4">{{ question.placeholder_paragraph }}...</p>
-
+                  {% if question.placeholder_paragraph %}
+                    <p class="question-text mb-4">{{ question.placeholder_paragraph }}</p>
+                  {% else %}
+                    <p class="question-text mb-4">---</p>
+                  {% endif %}
                   <div class="row align-items-center">
                     <div class="col-md-6">
                       <div class="d-flex align-items-center">
