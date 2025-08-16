@@ -113,9 +113,6 @@
                         <a href="{% url 'visit_profile' profile.user.id %}" class="btn btn-success btn-sm">
                           <i class="bi bi-eye me-1"></i>View Profile
                         </a>
-                        <a href="{% url 'unfollow_user' profile.user.id %}" class="btn btn-danger btn-sm">
-                          <i class="bi bi-person-x me-1"></i>Unfollow
-                        </a>
                       </div>
                     </div>
                   </div>
@@ -127,7 +124,7 @@
       {% else %}
         <div class="empty-state">
           <i class="bi bi-people text-muted" style="font-size: 4rem;"></i>
-          <h4 class="mt-3 mb-3">Not Following Anyone Yet</h4>
+          <h4 class="mt-3 mb-3 text-secondary">Not Following Anyone Yet</h4>
           {% if request.user == profile.user %}
             <p class="text-muted mb-4">You haven't started following anyone yet. Discover interesting people and topics to follow!</p>
             <a href="{% url 'all_room' %}" class="btn btn-success">

@@ -256,7 +256,7 @@
                 <div class="col-6">
                   <a href="{% url 'visit_following' profile.user.id %}" class="text-decoration-none">
                     <div class="text-center p-4 rounded" style="background: rgba(13,110,253,0.1);">
-                      <div class="stats-number">{{ following|length }}</div>
+                      <div class="stats-number">{{ following }}</div>
                       <small class="text-secondary">Following</small>
                     </div>
                   </a>
@@ -264,7 +264,7 @@
                 <div class="col-6">
                   <a href="{% url 'visit_followers' profile.user.id %}" class="text-decoration-none">
                     <div class="text-center p-4 rounded" style="background: rgba(25,135,84,0.1);">
-                      <div class="stats-number">{{ followers|length }}</div>
+                      <div class="stats-number">{{ followers }}</div>
                       <small class="text-secondary">Followers</small>
                     </div>
                   </a>
@@ -325,13 +325,13 @@
                 {% for activity in user_activity %}
                   <div class="card py-3 px-2 mb-3">
                     {% if activity.activity_type == activity.FOLLOWED_USER %}
-                      <a href="#" class="text-decoration-none text-dark"> Followed {{ activity.followed_user }} </a>
+                      <a href="{% url 'visit_profile' activity.followed_user.id %}" class="text-decoration-none text-dark"> Followed {{ activity.followed_user }} </a>
                     {% elif activity.activity_type == activity.QUESTION_CREATED %}
-                      <a href="#" class="text-decoration-none text-dark"> Created Question:</a>
+                      <a href="{% url 'enter_room' activity.question.id %}" class="text-decoration-none text-dark"> Created Question:</a>
                       <hr>
                       <p class="ms-4">{{ activity.question.title }}</p>
                     {% else %}
-                      <a href="#" class="text-decoration-none text-dark"> Answered to a question: {{ activity.question.title }}... </a>
+                      <a href="{% url 'enter_room' activity.answer.question.id %}" class="text-decoration-none text-dark"> Answered to a question: {{ activity.question.title }}... </a>
                       <hr>
                       <p class="ms-4 mt-2"> Answer: {{ activity.get_answer_display }}... </p>
                     {% endif %}

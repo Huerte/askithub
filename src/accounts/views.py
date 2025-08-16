@@ -127,8 +127,8 @@ def visit_profile(request, user_id):
         'user_status': user_status,
         'users_questions': sorted(users_questions, key=lambda users_questions: users_questions.created_at),
         'user_answers': user_answers,
-        'following': profile.following.all(),
-        'followers': profile.followers.all(),
+        'following': profile.following.all().count(),
+        'followers': profile.followers.all().count(),
         'is_followed': is_followed,
         'user_activity': user_activity,
     }
@@ -206,11 +206,9 @@ def view_user_activities(request, user_id):
     questions = QuestionThread.objects.filter(
         Q(created_by=user) | Q(answers__answer_by=user)
     )
-    answers = Answer.objects.filter(answer_by=user)
 
     context = {
         'questions': questions,
-        'answers': answers,
         'user': user
     }
 

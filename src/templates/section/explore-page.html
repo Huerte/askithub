@@ -125,33 +125,7 @@
         </div>
       </div>
     </div>
-  </section>
-
-  <!-- Filter Section -->
-  <section class="py-4">
-    <div class="container">
-      <div class="filter-section">
-        <div class="row align-items-center">
-          <div class="col-12 col-md-6">
-            <h3 class="h4 mb-3 text-dark">Filter by Topics</h3>
-            <p class="text-muted mb-0">Click on a topic to filter questions</p>
-          </div>
-          <div class="col-12 col-md-6">
-            <div class="d-flex flex-wrap gap-3 justify-content-md-end">
-              <a href="{% url 'all_room' %}" class="btn filter-btn outline">
-                <i class="bi bi-funnel me-2"></i>All Questions
-              </a>
-              {% for topic in top_topics %}
-                <a href="{% url 'visit_related_topics' topic.id %}" class="btn filter-btn">
-                  #{{ topic.name }} ({{ topic.question_count }})
-                </a>
-              {% endfor %}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  </section>  
 
   <!-- Questions Section -->
   <section class="py-4">
