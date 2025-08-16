@@ -78,8 +78,26 @@
     </div>
   </section>
 
-  <section class="py-4">
-    
+  <section class="py-5">
+    <div class="container">
+      <div class="row g-4">
+        {% for topic in topics %}
+          <div class="col-12 col-md-6 col-lg-4">
+            <a href="{% url 'visit_related_topics' topic.id %}" class="text-decoration-none text-black">
+            <div class="feature-card h-100 p-4 text-center shadow-sm">
+              <div class="feature-icon mx-auto">
+                <i class="bi bi-tag-fill"></i>
+              </div>
+              <h4 class="h5 mb-3">{{ topic.name }}</h4>
+              <p class="text-muted mb-0">
+                <strong>{{ topic.questions.count }}</strong> related question
+              </p>
+            </div>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
   </section>
 
 {% endblock %}
