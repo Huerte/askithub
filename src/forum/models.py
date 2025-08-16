@@ -4,14 +4,14 @@ from django.contrib.auth.models import User
 
 class Topic(models.Model):
     name = models.CharField(max_length=100)
-
+    
     def __str__(self):
         return self.name
 
 
 class QuestionThread(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
-    topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
+    topic = models.ForeignKey(Topic, on_delete=models.CASCADE, related_name='questions')
     title = models.CharField(max_length=300)
     body = models.TextField(max_length=1000, null=True, blank=True)
 
