@@ -104,3 +104,12 @@ def search_page(request):
         return render(request, 'section/search-page.html', context)
 
     return redirect(request.META.get('HTTP_REFERER', '/'))
+
+def explore_topics(request):
+    topics = Topic.objects.all()
+
+    context = {
+        'topics': topics,
+    }
+
+    return render(request, 'section/explore-topics-page.html', context)
