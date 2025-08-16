@@ -65,6 +65,25 @@
   .question-text {
     color: #475569;
   }
+
+  .created-badge {
+    background: linear-gradient(135deg, #0d6efd, #6ea4f4);
+    color: white;
+    border-radius: 20px;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  .answered-badge {
+    background: linear-gradient(135deg, #198754, #52efa6);
+    color: white;
+    border-radius: 20px;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
 </style>
 {% endblock %}
 
@@ -77,11 +96,6 @@
           <h1 class="display-5 fw-bold mb-3">
             <i class="bi bi-person-lines-fill"></i> {{ user.username }}'s Activities
           </h1>
-          {% if questions %}
-            <div class="search-stats">
-              <p class="mb-2 text-light">Found <strong>{{ questions|length }}</strong> created questions and <strong>{{ answer|length }}</strong> answers commited</p>
-            </div>
-          {% endif %}
         </div>
       </div>
     </div>
@@ -95,8 +109,14 @@
           <div class="col-12">
             {% for question in questions %}
               <div class="search-result-card p-4">
+                {% if question.created_by == user %}
+                  <span class="created-badge"> Created Question </span>
+                {% else %}
+                  <span class="answered-badge"> Answered Question </span>
+                {% endif %}
+                
                 <a href="{% url 'enter_room' question.id %}" class="text-decoration-none">
-                  <div class="d-flex w-100 justify-content-between align-items-start mb-3">
+                  <div class="d-flex w-100 justify-content-between align-items-start mb-2 mt-4">
                     <h4 class="question-title mb-2">{{ question.title }}</h4>
                     <small class="text-muted">{{ question.created_at|timesince }} ago</small>
                   </div>
