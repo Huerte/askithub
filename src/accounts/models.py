@@ -83,7 +83,7 @@ class UserActivity(models.Model):
     
     def get_answer_display(self):
         if self.answer:
-            return self.answer.answer[:30]
+            return self.answer.body[:30]
         return 'Empty'
 
     def __str__(self):

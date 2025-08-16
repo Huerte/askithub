@@ -84,7 +84,7 @@ def get_answer_body(request, answer_id):
     update_user_status(request)
     if request.method == 'GET':
         answer = Answer.objects.get(id=answer_id)
-        return JsonResponse({'body': answer.answer})
+        return JsonResponse({'body': answer.body})
     return JsonResponse({'error': 'Invalid Request'}, status=400)
 
 @login_required(login_url='/auth/login/')

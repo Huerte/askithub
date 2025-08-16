@@ -135,7 +135,11 @@
                           <h6 class="card-title mb-0">{{ question.title }}</h6>
                           <small class="text-muted">{{ question.created_at|timesince }} ago</small>
                         </div>
-                        <p class="card-text mt-2">{{ question.placeholder_paragraph }}...</p>
+                        {% if question.placeholder_paragraph %}
+                          <p class="card-text mt-2">{{ question.placeholder_paragraph }}</p>
+                        {% else %}
+                          <p class="card-text mt-2">---</p>
+                        {% endif %}
                         <div class="d-flex justify-content-between align-items-center mt-3 question-meta">
                           <span>@{{ question.created_by.username }}</span>
                           <div class="d-flex align-items-center">
