@@ -2,11 +2,15 @@ from django.db import models
 from django.contrib.auth.models import User
 from forum.models import QuestionThread, Answer
 
+
 class UserStatus(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     is_online = models.BooleanField(default=False)
 
     last_seen = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        verbose_name_plural = 'User Status'
 
     def __str__(self):
         return f'{self.user.username}'
@@ -30,6 +34,9 @@ class Profile(models.Model):
         related_name='followers',
         blank=True,
     )
+
+    class Meta:
+        verbose_name_plural = 'Profile'
 
     def __str__(self):
         return f'{self.user.username}'
@@ -58,7 +65,13 @@ class UserActivity(models.Model):
 
     followed_user = models.ForeignKey(Profile, related_name='follow_activities', on_delete=models.CASCADE, null=True, blank=True)
 
+    # This is a flag used to determine if this history should be shown
+    is_active = models.BooleanField(default=True)
+
     timestamp = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = 'User Activities'
 
     def get_activity_type(self):
         return self.get_activity_type_display()

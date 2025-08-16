@@ -15,7 +15,7 @@ class ProfileAdmin(admin.ModelAdmin):
 
 
 class UserActivityAdmin(admin.ModelAdmin):
-    list_display = ('user', 'activity_type')
+    list_display = ('user', 'activity_type', 'is_active')
     list_filter = ('activity_type',)
     search_fields = ('user__username', 'activity_type')
 
