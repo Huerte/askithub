@@ -23,6 +23,8 @@ class Profile(models.Model):
     bio = models.TextField(blank=True, null=True)
     location = models.CharField(max_length=200, blank=True, null=True)
     
+    is_subscribed = models.BooleanField(default=False)
+
     following = models.ManyToManyField(
         'self',
         # This symmetrical=False help as achieved 
