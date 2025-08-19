@@ -1,3 +1,5 @@
+{% load subscription_tags %}
+
 <footer class="text-white py-5" style="background: linear-gradient(135deg, #0b1220 0%, #0f172a 50%, #121826 100%); border-top: 1px solid rgba(255,255,255,0.1);">
   <div class="container">
     <div class="row g-4">
@@ -9,10 +11,10 @@
           </h4>
           <p class="text-light mb-3">Your go-to platform for asking questions, sharing knowledge, and building a community of learners and experts.</p>
           <div class="d-flex gap-3">
-            <a href="#" class="btn btn-outline-light rounded-circle" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
-              <i class="bi bi-twitter"></i>
+            <a href="https://www.facebook.com/huertejerald.dev" class="btn btn-outline-light rounded-circle" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+              <i class="bi bi-facebook"></i>
             </a>
-            <a href="#" class="btn btn-outline-light rounded-circle" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+            <a href="https://www.linkedin.com/in/huertejerald/" class="btn btn-outline-light rounded-circle" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
               <i class="bi bi-linkedin"></i>
             </a>
             <a href="https://github.com/Huerte" class="btn btn-outline-light rounded-circle" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
@@ -49,17 +51,17 @@
         <h6 class="fw-bold mb-3 text-light">Community</h6>
         <ul class="list-unstyled">
           <li class="mb-2">
-            <a href="#" class="text-light text-decoration-none hover-light">
+            <a href="{% url 'guidelines' %}" class="text-light text-decoration-none hover-light">
               <i class="bi bi-people me-2"></i>Guidelines
             </a>
           </li>
           <li class="mb-2">
-            <a href="#" class="text-light text-decoration-none hover-light">
+            <a href="{% url 'privacy' %}" class="text-light text-decoration-none hover-light">
               <i class="bi bi-shield-check me-2"></i>Privacy
             </a>
           </li>
           <li class="mb-2">
-            <a href="#" class="text-light text-decoration-none hover-light">
+            <a href="{% url 'terms' %}" class="text-light text-decoration-none hover-light">
               <i class="bi bi-file-text me-2"></i>Terms
             </a>
           </li>
@@ -94,7 +96,8 @@
         <p class="text-light small mb-3">Get the latest updates and features</p>
         <div class="input-group">
           {% if request.user.is_authenticated %}
-            {% if user_profile.is_subscribed %}
+            {% is_subscribe as subscribe_flag %}
+            {% if subscribe_flag %}
               <form action="{% url 'unsubscribe' %}" method="POST">
                 {% csrf_token %}
                 <div class="d-flex justify-content-end">
