@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% block css %}
+<style>
+  /* Hero Section */
+  .policy-hero {
+    background: radial-gradient(1200px 400px at 10% -20%, rgba(13,110,253,.25), transparent 50%),
+                radial-gradient(1000px 400px at 110% 0%, rgba(239,68,68,.25), transparent 50%),
+                linear-gradient(180deg, #0b1220 0%, #0f172a 50%, #121826 100%);
+    color: #f1f5f9;
+    text-align: center;
+    padding: 4rem 0;
+  }
+  .policy-hero h1 {
+    font-size: 2.75rem;
+    font-weight: 700;
+    background: linear-gradient(90deg, #3b82f6, #06b6d4);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+  .policy-hero p {
+    color: #94a3b8;
+    margin-top: 0.75rem;
+    font-size: 1.1rem;
+  }
+
+  /* Grid layout */
+  .policy-grid {
+    display: grid;
+    gap: 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .policy-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Card styling */
+  .policy-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 1.75rem;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .policy-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+  }
+
+  /* Icon */
+  .policy-icon {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    background: linear-gradient(135deg, #ef4444, #f59e0b);
+    color: #fff;
+    font-weight: bold;
+  }
+
+  /* Text */
+  .policy-card h5 {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #0f172a;
+  }
+  .policy-card p {
+    color: #475569;
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+  <!-- Hero -->
+  <section class="policy-hero">
+    <div class="container">
+      <h1>Terms of Service</h1>
+      <p>Clear rules for using our platform responsibly.</p>
+    </div>
+  </section>
+
+  <!-- Content -->
+  <section class="py-5">
+    <div class="container policy-grid">
+
+      <div class="policy-card">
+        <div class="policy-icon">✅</div>
+        <div>
+          <h5>1. Acceptance of Terms</h5>
+          <p>By using this platform, you agree to comply with these Terms of Service. If you disagree, please stop using the service.</p>
+        </div>
+      </div>
+
+      <div class="policy-card">
+        <div class="policy-icon">👤</div>
+        <div>
+          <h5>2. Account Responsibility</h5>
+          <p>You are responsible for maintaining the confidentiality of your account credentials and for all activities under your account.</p>
+        </div>
+      </div>
+
+      <div class="policy-card">
+        <div class="policy-icon">📜</div>
+        <div>
+          <h5>3. Acceptable Use</h5>
+          <p>Do not engage in harmful, unlawful, or disruptive activities. Content that violates community guidelines or the law may result in account suspension.</p>
+        </div>
+      </div>
+
+      <div class="policy-card">
+        <div class="policy-icon">💡</div>
+        <div>
+          <h5>4. Intellectual Property</h5>
+          <p>All platform content, unless submitted by users, is protected by intellectual property rights. Users retain rights to their own contributions.</p>
+        </div>
+      </div>
+
+      <div class="policy-card">
+        <div class="policy-icon">⛔</div>
+        <div>
+          <h5>5. Termination</h5>
+          <p>We reserve the right to suspend or terminate accounts that violate these terms, without prior notice if necessary.</p>
+        </div>
+      </div>
+
+      <div class="policy-card">
+        <div class="policy-icon">🔄</div>
+        <div>
+          <h5>6. Changes to Terms</h5>
+          <p>These terms may be updated periodically. Continued use of the platform means acceptance of the updated terms.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+{% endblock %}

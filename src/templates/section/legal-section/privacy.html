@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+
+{% block css %}
+<style>
+  /* Hero Section */
+  .policy-hero {
+    background: radial-gradient(1200px 400px at 10% -20%, rgba(13,110,253,.25), transparent 50%),
+                radial-gradient(1000px 400px at 110% 0%, rgba(25,135,84,.25), transparent 50%),
+                linear-gradient(180deg, #0b1220 0%, #0f172a 50%, #121826 100%);
+    color: #f1f5f9;
+    text-align: center;
+    padding: 4rem 0;
+  }
+  .policy-hero h1 {
+    font-size: 2.75rem;
+    font-weight: 700;
+    background: linear-gradient(90deg, #3b82f6, #06b6d4);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+  .policy-hero p {
+    color: #94a3b8;
+    margin-top: 0.75rem;
+    font-size: 1.1rem;
+  }
+
+  /* Grid layout for cards */
+  .policy-grid {
+    display: grid;
+    gap: 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .policy-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Card styling */
+  .policy-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 1.75rem;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .policy-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+  }
+
+  /* Icon */
+  .policy-icon {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    background: linear-gradient(135deg, #3b82f6, #06b6d4);
+    color: #fff;
+    font-weight: bold;
+  }
+
+  /* Text */
+  .policy-card h5 {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #0f172a;
+  }
+  .policy-card p {
+    color: #475569;
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+
+  /* Links */
+  .policy-card a {
+    color: #2563eb;
+    font-weight: 500;
+    text-decoration: none;
+    position: relative;
+  }
+  .policy-card a::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background: #2563eb;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.25s ease;
+  }
+  .policy-card a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+  <!-- Hero -->
+  <section class="policy-hero">
+    <div class="container">
+      <h1>Privacy Policy</h1>
+      <p>Your data, your trust, our responsibility.</p>
+    </div>
+  </section>
+
+  <!-- Content -->
+  <section class="py-5">
+    <div class="container policy-grid">
+
+      <div class="policy-card">
+        <div class="policy-icon">📋</div>
+        <div>
+          <h5>1. Information We Collect</h5>
+          <p>We collect only necessary information such as your username, email, and activity within the platform. Sensitive data is not required.</p>
+        </div>
+      </div>
+
+      <div class="policy-card">
+        <div class="policy-icon">⚙️</div>
+        <div>
+          <h5>2. How We Use Information</h5>
+          <p>Your data helps us improve services, provide personalized experiences, and maintain community safety. We never sell your information to third parties.</p>
+        </div>
+      </div>
+
+      <div class="policy-card">
+        <div class="policy-icon">🍪</div>
+        <div>
+          <h5>3. Cookies and Tracking</h5>
+          <p>We use cookies to remember your preferences and enhance your browsing experience. You can disable cookies in your browser if preferred.</p>
+        </div>
+      </div>
+
+      <div class="policy-card">
+        <div class="policy-icon">🔒</div>
+        <div>
+          <h5>4. Data Protection</h5>
+          <p>We apply encryption and security practices to safeguard your information against unauthorized access, loss, or misuse.</p>
+        </div>
+      </div>
+
+      <div class="policy-card">
+        <div class="policy-icon">📝</div>
+        <div>
+          <h5>5. Your Rights</h5>
+          <p>You can request access, correction, or deletion of your personal data at any time by contacting us via <a href="#">Contact Us</a>.</p>
+        </div>
+      </div>
+
+      <div class="policy-card">
+        <div class="policy-icon">🔄</div>
+        <div>
+          <h5>6. Updates to Policy</h5>
+          <p>We may update this Privacy Policy as needed. Significant changes will be communicated clearly to all users.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+{% endblock %}
