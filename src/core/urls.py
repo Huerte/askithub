@@ -11,4 +11,6 @@ urlpatterns = [
     path('room/<str:room_id>', views.enter_room, name='enter_room'),
 
     path('search/', views.search_page, name='search'),
+
+    path('subscribe/', views.subscribe, name='subscribe'),
 ]
