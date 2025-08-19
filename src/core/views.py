@@ -100,6 +100,15 @@ def explore_topics(request):
 
     return render(request, 'section/explore-topics-page.html', context)
 
+def guidlines(request):
+    return render(request, 'section/legal-section/guidelines.html')
+
+def privacy(request):
+    return render(request, 'section/legal-section/privacy.html')
+
+def terms(request):
+    return render(request, 'section/legal-section/terms.html')
+
 @login_required(login_url='/auth/login')
 def subscribe(request):
     if request.method == 'POST':

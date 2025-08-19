@@ -14,4 +14,9 @@ urlpatterns = [
 
     path('subscribe/', views.subscribe, name='subscribe'),
     path('unsubscribe/', views.unsubscribe, name='unsubscribe'),
+
+    path('guidelines/', views.guidlines, name='guidelines'),
+    path('privacy/', views.privacy, name='privacy'),
+    path('terms/', views.terms, name='terms'),
+
 ]

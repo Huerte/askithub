@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+
+{% block css %}
+<style>
+  /* Hero Section */
+  .policy-hero {
+    background: radial-gradient(1200px 400px at 10% -20%, rgba(13,110,253,.25), transparent 50%),
+                radial-gradient(1000px 400px at 110% 0%, rgba(25,135,84,.25), transparent 50%),
+                linear-gradient(180deg, #0b1220 0%, #0f172a 50%, #121826 100%);
+    color: #f1f5f9;
+    text-align: center;
+    padding: 4rem 0;
+  }
+  .policy-hero h1 {
+    font-size: 2.75rem;
+    font-weight: 700;
+    background: linear-gradient(90deg, #3b82f6, #06b6d4);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+  .policy-hero p {
+    color: #94a3b8;
+    margin-top: 0.75rem;
+    font-size: 1.1rem;
+  }
+
+  /* Policy Section Container */
+  .policy-grid {
+    display: grid;
+    gap: 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .policy-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Policy Card */
+  .policy-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 1.75rem;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .policy-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+  }
+
+  /* Icon / Badge */
+  .policy-icon {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    background: linear-gradient(135deg, #3b82f6, #22c55e);
+    color: #fff;
+    font-weight: bold;
+  }
+
+  /* Text */
+  .policy-card h5 {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #0f172a;
+  }
+  .policy-card p {
+    color: #475569;
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+
+  /* Link */
+  .policy-card a {
+    color: #2563eb;
+    font-weight: 500;
+    text-decoration: none;
+    position: relative;
+  }
+  .policy-card a::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background: #2563eb;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.25s ease;
+  }
+  .policy-card a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+  <!-- Hero -->
+  <section class="policy-hero">
+    <div class="container">
+      <h1>Community Guidelines</h1>
+      <p>A respectful and safe space for everyone.</p>
+    </div>
+  </section>
+
+  <!-- Content -->
+  <section class="py-5">
+    <div class="container policy-grid">
+
+      <div class="policy-card">
+        <div class="policy-icon">🙌</div>
+        <div>
+          <h5>1. Respect Others</h5>
+          <p>Always engage respectfully. Harassment, hate speech, or personal attacks are not tolerated. Debate ideas, not people.</p>
+        </div>
+      </div>
+
+      <div class="policy-card">
+        <div class="policy-icon">🎯</div>
+        <div>
+          <h5>2. Stay On Topic</h5>
+          <p>Keep discussions focused on relevant subjects. Avoid spamming, trolling, or derailing conversations.</p>
+        </div>
+      </div>
+
+      <div class="policy-card">
+        <div class="policy-icon">💡</div>
+        <div>
+          <h5>3. Contribute Value</h5>
+          <p>Share knowledge that benefits the community. Avoid misleading information, plagiarism, or low-effort content.</p>
+        </div>
+      </div>
+
+      <div class="policy-card">
+        <div class="policy-icon">🔒</div>
+        <div>
+          <h5>4. Protect Privacy</h5>
+          <p>Do not share sensitive or personal information — yours or others'. Respect confidentiality at all times.</p>
+        </div>
+      </div>
+
+      <div class="policy-card">
+        <div class="policy-icon">⚖️</div>
+        <div>
+          <h5>5. Follow the Law</h5>
+          <p>Illegal content, activities, or encouragement of harmful behavior is strictly prohibited.</p>
+        </div>
+      </div>
+
+      <div class="policy-card">
+        <div class="policy-icon">🚨</div>
+        <div>
+          <h5>6. Report Issues</h5>
+          <p>If you see harmful or rule-breaking behavior, use the <a href="#">Report Issue</a> feature. Together, we keep the community safe.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+{% endblock %}
