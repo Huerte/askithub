@@ -12,10 +12,14 @@ def homepage_view(request):
 
     question_thread = QuestionThread.objects.all()[::-1][:5]
     topics = Topic.objects.all()[:5]
+    user_profile = None
+    if request.user.is_authenticated:
+        user_profile, _ = Profile.objects.get_or_create(user=request.user)
 
     context = {
         'question_thread': question_thread,
         'topics': topics,
+        'user_profile': user_profile,
     }
 
     return render(request, 'home.html', context)
@@ -99,10 +103,17 @@ def explore_topics(request):
 @login_required(login_url='/auth/login')
 def subscribe(request):
     if request.method == 'POST':
-        email = request.POST.get('email')
-        if email.strip() != '':
-            profile, _ = Profile.objects.get_or_create(user=request.user)
-            profile.is_subscribed = True
-            profile.save()
+        profile, _ = Profile.objects.get_or_create(user=request.user)
+        profile.is_subscribed = True
+        profile.save()
+            
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+@login_required(login_url='/auth/login')
+def unsubscribe(request):
+    if request.method == 'POST':
+        profile, _ = Profile.objects.get_or_create(user=request.user)
+        profile.is_subscribed = False
+        profile.save()
             
     return redirect(request.META.get('HTTP_REFERER', '/'))
