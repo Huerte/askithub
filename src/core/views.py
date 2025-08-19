@@ -5,6 +5,7 @@ from forum.models import QuestionThread, Answer, Topic
 from django.db import models
 from django.contrib.auth.decorators import login_required
 from accounts.views import update_user_status
+from accounts.models import Profile
 
 
 def homepage_view(request):
@@ -94,3 +95,14 @@ def explore_topics(request):
     }
 
     return render(request, 'section/explore-topics-page.html', context)
+
+@login_required(login_url='/auth/login')
+def subscribe(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        if email.strip() != '':
+            profile, _ = Profile.objects.get_or_create(user=request.user)
+            profile.is_subscribed = True
+            profile.save()
+            
+    return redirect(request.META.get('HTTP_REFERER', '/'))
