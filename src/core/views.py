@@ -6,6 +6,8 @@ from django.db import models
 from django.contrib.auth.decorators import login_required
 from accounts.views import update_user_status
 from accounts.models import Profile
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 def homepage_view(request):
@@ -130,3 +132,39 @@ def unsubscribe(request):
         profile.save()
             
     return redirect(request.META.get('HTTP_REFERER', '/'))
+
+
+def contact_support(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get("email")
+        subject = request.POST.get("subject")
+        message = request.POST.get("message")
+
+        admin_message = f"""
+        New Contact Form Submission:
+
+        From: {name} <{email}>
+        Subject: {subject}
+        Message:
+        {message}
+        """
+
+        send_mail(
+            subject=f'Contact Form: {subject}',
+            message=admin_message,
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=['huertejerald@gmail.com'],
+        )
+
+        host_message = f"Hi {name},\n\nThanks for contacting us! We received your message and will reply ASAP."
+        send_mail(
+            subject='We got you message',
+            message=host_message,
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[email], 
+        )
+
+        return redirect('/')
+    
+    return redirect('contact')
