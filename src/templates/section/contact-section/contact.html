@@ -148,7 +148,7 @@
         <div class="col-12 col-lg-7">
           <div class="contact-card">
             <h5 class="mb-3">Send us a Message</h5>
-            <form action="{% url 'contact' %}" method="POST">
+            <form action="{% url 'contact_support' %}" method="POST">
               {% csrf_token %}
               <div class="mb-3">
                 <input type="text" name="name" class="form-control" placeholder="Your Name" required>
