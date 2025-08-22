@@ -68,27 +68,17 @@
         </ul>
       </div>
 
-      <!-- Support -->
-      <div class="col-12 col-lg-2">
-        <h6 class="fw-bold mb-3 text-light">Support</h6>
-        <ul class="list-unstyled">
-          <li class="mb-2">
-            <a href="#" class="text-light text-decoration-none hover-light">
-              <i class="bi bi-question-circle me-2"></i>Help Center
-            </a>
-          </li>
-          <li class="mb-2">
-            <a href="#" class="text-light text-decoration-none hover-light">
-              <i class="bi bi-envelope me-2"></i>Contact Us
-            </a>
-          </li>
-          <li class="mb-2">
-            <a href="#" class="text-light text-decoration-none hover-light">
-              <i class="bi bi-bug me-2"></i>Report Issue
-            </a>
-          </li>
-        </ul>
-      </div>
+<!-- Support -->
+<div class="col-12 col-lg-2 d-flex flex-column justify-content-between">
+  <div>
+    <h6 class="fw-bold mb-3 text-light">Support</h6>
+    <a href="{% url 'contact' %}" class="text-light text-decoration-none hover-light">
+      <i class="bi bi-envelope me-2"></i>Contact Us
+    </a>
+  </div>
+  <div class="mt-4">&nbsp;</div> <!-- filler space to balance height -->
+</div>
+
 
       <!-- Newsletter -->
       <div class="col-12 col-lg-2">

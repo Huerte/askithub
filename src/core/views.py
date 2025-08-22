@@ -109,6 +109,10 @@ def privacy(request):
 def terms(request):
     return render(request, 'section/legal-section/terms.html')
 
+def contact(request):
+    return render(request, 'section/contact-section/contact.html')
+
+
 @login_required(login_url='/auth/login')
 def subscribe(request):
     if request.method == 'POST':
