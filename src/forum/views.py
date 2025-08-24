@@ -18,7 +18,7 @@ def comment(request, room_id):
 
         question = get_object_or_404(QuestionThread, id=room_id)
 
-        answer = Answer(answer_by=request.user, answer=comment, question=question)
+        answer = Answer(answer_by=request.user, body=comment, question=question)
         answer.save()
 
         user_activity = UserActivity.objects.create(
@@ -28,6 +28,8 @@ def comment(request, room_id):
             question=question,
         )
         user_activity.save()
+
+    
 
     return redirect('enter_room', room_id=room_id)
 
@@ -95,7 +97,7 @@ def edit_answer(request, answer_id):
 
         answer = Answer.objects.update_or_create(
             id=answer_id,
-            defaults={'answer': body},
+            defaults={'body': body},
         )
         
     return redirect(request.META.get('HTTP_REFERER', '/'))
