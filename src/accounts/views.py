@@ -8,16 +8,16 @@ from .models import UserStatus, Profile, UserActivity, Answer
 from django.utils import timezone
 from forum.models import QuestionThread
 from django.db.models import Q
-
+from django.core.mail import send_mail
+from django.core.cache import cache
+from django.conf import settings
+import random
 
 def login_view(request):
     return render(request, 'auth/login.html')
 
 def register_view(request):
     return render(request, 'auth/register.html')
-
-def forgot_password_view(request):
-    return render(request, 'auth/forgot-password.html')
 
 @requires_csrf_token
 def login_user(request):
@@ -219,3 +219,61 @@ def view_user_activities(request, user_id):
     }
 
     return render(request, 'section/user_activity.html', context)
+
+
+def forgot_password_view(request):
+    return render(request, 'auth/password_reset_request.html')
+
+def password_reset_verification(request):
+    if request.method == 'POST':
+        email = request.session.get('verified_email')
+        code = request.POST.get('code')
+        if code:
+            correct_code = cache.get(email)
+
+            if correct_code and code == correct_code:
+                return redirect('password_reset_form')
+
+    return render(request, 'auth/password_reset_verify.html')
+
+def password_reset_form(request):
+    return render(request, 'auth/password_reset_form.html')
+
+def send_verification_code(request):
+    if request.method == 'POST':
+        email = request.POST.get("email")
+
+        if User.objects.filter(email=email).exists():
+            if email and email.strip() != '':
+                code = ''.join(random.choices('0123456789', k=6)) # 6 digit code
+
+                # The code will expire after 5 minutes
+                cache.set(email, code, timeout=300)
+
+                send_mail(
+                    subject='Reset Password Code',
+                    message=f"{code} is your reset code",
+                    from_email=settings.EMAIL_HOST_USER,
+                    recipient_list=[email],
+                )
+
+                request.session['verified_email'] = email
+
+                return render(request, 'auth/password_reset_verify.html')
+    
+    return redirect('forgot_password')
+
+def change_password(request):
+    if request.method == 'POST':
+        email = request.session.get('verified_email')
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
+
+        if password1 == password2 and User.objects.filter(email=email).exists():
+            user = User.objects.get(email=email)
+            user.set_password(password1)
+            user.save()
+
+            return redirect('login-page')
+        
+    return redirect('password_reset_form')
