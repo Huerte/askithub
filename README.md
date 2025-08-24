@@ -1,5 +1,7 @@
 # 🚀 AskItHub
 
+![Homepage](docs/screenshots/Screenshot%20(235).png)
+
 <div align="center">
 
 ![AskItHub Logo](https://img.shields.io/badge/AskItHub-Community%20Q%26A-25d366?style=for-the-badge&logo=github&logoColor=white)
