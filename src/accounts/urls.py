@@ -5,7 +5,13 @@ from . import views
 urlpatterns = [
     path('login/', views.login_view, name='login-page'),
     path('register/', views.register_view, name='register-page'),
+
     path('forgot-password/', views.forgot_password_view, name='forgot_password'),
+    path('send-verification-code/', views.send_verification_code, name='send_verification_code'),
+    path('password-reset-verification/', views.password_reset_verification, name='password_reset_verification'),
+    path('password-reset-form/', views.password_reset_form, name='password_reset_form'),
+    path('change-password/', views.change_password, name='change_password'),
+    
 
     path('login/account/', views.login_user, name='login'),
     path('register/account/', views.register_user, name='register'),
