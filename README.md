@@ -212,35 +212,109 @@ Before you begin, ensure you have the following installed:
 
 ```
 askithub/
-├── src/                          # Django project root
-│   ├── accounts/                 # User authentication & profiles
-│   │   ├── models.py            # User, Profile, UserActivity models
-│   │   ├── views.py             # Authentication views
-│   │   ├── urls.py              # Account-related URLs
-│   │   └── templates/auth/      # Authentication templates
-│   ├── forum/                   # Q&A functionality
-│   │   ├── models.py            # Topic, QuestionThread, Answer models
-│   │   ├── views.py             # Forum views
-│   │   ├── urls.py              # Forum URLs
-│   │   └── templates/section/   # Forum templates
-│   ├── core/                    # Core functionality
-│   │   ├── models.py            # Core models
-│   │   ├── views.py             # Core views
-│   │   └── urls.py              # Core URLs
-│   ├── main/                    # Django settings
-│   │   ├── settings.py          # Django configuration
-│   │   ├── urls.py              # Main URL configuration
-│   │   └── wsgi.py              # WSGI configuration
-│   ├── templates/               # Base templates
-│   │   ├── base.html            # Base template
-│   │   ├── home.html            # Homepage template
-│   │   └── components/          # Reusable components
-│   ├── static/                  # Static files
-│   ├── media/                   # User-uploaded files
-│   └── manage.py                # Django management script
+├── .env                         # Environment variables
+├── .gitignore                   # Git ignore rules
+├── LICENSE                      # MIT License
+├── project_enhancement_guide.md # Project enhancement documentation
+├── README.md                    # Project documentation
 ├── requirements.txt             # Python dependencies
-├── README.md                   # Project documentation
-└── LICENSE                     # MIT License
+│
+├── docs/                        # Documentation and screenshots
+│   └── screenshots/             # Application screenshots
+│       ├── Screenshot (235).png # Homepage screenshot
+│       ├── Screenshot (236).png # Login page screenshot
+│       ├── Screenshot (237).png # Register page screenshot
+│       ├── Screenshot (239).png # Profile page screenshot
+│       └── Screenshot (241).png # Q&A interface screenshot
+│
+└── src/                         # Django project root
+    ├── manage.py                # Django management script
+    │
+    ├── accounts/                # User authentication & profiles
+    │   ├── admin.py             # Admin interface configuration
+    │   ├── apps.py              # App configuration
+    │   ├── models.py            # User, Profile, UserActivity models
+    │   ├── tests.py             # Test cases
+    │   ├── urls.py              # Account-related URLs
+    │   ├── views.py             # Authentication views
+    │   ├── __init__.py          # Python package marker
+    │   │
+    │   ├── templates/auth/      # Authentication templates
+    │   │   ├── login.html       # Login page template
+    │   │   ├── register.html    # Registration page template
+    │   │   ├── password_reset_request.html    # Password reset request
+    │   │   ├── password_reset_verify.html     # Password reset verification
+    │   │   └── password_reset_form.html       # Password reset form
+    │   │
+    │   └── templatetags/        # Custom template tags
+    │       ├── subscription_tags.py
+    │       └── __init__.py
+    │
+    ├── core/                    # Core functionality
+    │   ├── admin.py             # Admin interface configuration
+    │   ├── apps.py              # App configuration
+    │   ├── models.py            # Core models
+    │   ├── tests.py             # Test cases
+    │   ├── urls.py              # Core URLs
+    │   ├── views.py             # Core views
+    │   └── __init__.py          # Python package marker
+    │
+    ├── forum/                   # Q&A functionality
+    │   ├── admin.py             # Admin interface configuration
+    │   ├── apps.py              # App configuration
+    │   ├── models.py            # Topic, QuestionThread, Answer models
+    │   ├── tests.py             # Test cases
+    │   ├── urls.py              # Forum URLs
+    │   ├── views.py             # Forum views
+    │   ├── __init__.py          # Python package marker
+    │   │
+    │   └── templates/section/   # Forum templates
+    │       └── room.html        # Forum room template
+    │
+    ├── main/                    # Django settings
+    │   ├── asgi.py              # ASGI configuration
+    │   ├── settings.py          # Django configuration
+    │   ├── urls.py              # Main URL configuration
+    │   ├── wsgi.py              # WSGI configuration
+    │   └── __init__.py          # Python package marker
+    │
+    ├── media/                   # User-uploaded files
+    │   └── profile_pics/        # User profile pictures
+    │
+    ├── static/                  # Static files
+    │   └── favicon.ico          # Site favicon
+    │
+    └── templates/               # Base templates
+        ├── 400.html             # Bad Request error page
+        ├── 401.html             # Unauthorized error page
+        ├── 403.html             # Forbidden error page
+        ├── 404.html             # Not Found error page
+        ├── 500.html             # Server Error error page
+        ├── base.html            # Base template
+        ├── home.html            # Homepage template
+        │
+        ├── components/          # Reusable components
+        │   ├── footer.html      # Footer component
+        │   └── navbar.html      # Navigation component
+        │
+        └── section/             # Page sections
+            ├── about-page.html          # About page
+            ├── explore-page.html        # Explore page
+            ├── explore-topics-page.html # Explore topics page
+            ├── followers-section.html   # Followers section
+            ├── following-section.html   # Following section
+            ├── profile-page.html        # Profile page
+            ├── search-page.html         # Search page
+            ├── topics-page.html         # Topics page
+            ├── user_activity.html       # User activity page
+            │
+            ├── contact-section/         # Contact pages
+            │   └── contact.html         # Contact page
+            │
+            └── legal-section/           # Legal pages
+                ├── guidelines.html      # Community guidelines
+                ├── privacy.html         # Privacy policy
+                └── terms.html           # Terms of service
 ```
 
 ---
