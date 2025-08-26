@@ -11,7 +11,7 @@ DEBUG = config('DEBUG', cast=bool)
 if DEBUG:
     ALLOWED_HOSTS = ['*']
 else:
-    ALLOWED_HOSTS = ['https://askithub.onrender.com']
+    ALLOWED_HOSTS = ['askithub.onrender.com']
 
 INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
