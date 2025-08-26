@@ -11,7 +11,7 @@ DEBUG = config('DEBUG', cast=bool)
 if DEBUG:
     ALLOWED_HOSTS = ['*']
 else:
-    ALLOWED_HOSTS = ['']
+    ALLOWED_HOSTS = ['https://askithub.onrender.com']
 
 INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
@@ -116,7 +116,7 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
-if DEBUG:
+if not DEBUG:
     STATIC_ROOT = BASE_DIR / "staticfiles"
     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
