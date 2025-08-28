@@ -532,7 +532,7 @@
 {% block js %}
 <script>
     function loadMessage(answerId) {
-        fetch(`/answer/${answerId}/get`)
+        fetch(`/forum/answer/${answerId}/get`)
         .then(response => response.json())
         .then(data => {
             if (data.body !== undefined) {

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block css %}
 <style>
@@ -167,9 +168,18 @@
         <!-- Avatar and Status -->
         <div class="col-12 col-lg-3 text-center">
           <div class="avatar-container mb-3">
-            <img src="{{ profile.avatar.url }}" alt="{{ profile.user.username }} avatar" 
-                 class="img-fluid rounded-circle shadow-lg" width="150" height="150"
-                 style="border: 4px solid rgba(255,255,255,0.1);">
+          <img 
+              {% if profile.avatar %} 
+                  src="{{ profile.avatar.url }}" 
+              {% else %} 
+                  src="{% static 'default_pic/default.png' %}" 
+              {% endif %} 
+              alt="{{ profile.user.username }} avatar"
+              class="img-fluid rounded-circle shadow-lg" 
+              width="150" 
+              height="150"
+              style="border: 4px solid rgba(255,255,255,0.1);">
+
             <div class="status-indicator {% if user_status and user_status.is_online %}status-online{% else %}status-offline{% endif %}"></div>
           </div>
           
