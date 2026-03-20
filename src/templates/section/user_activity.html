@@ -11,23 +11,19 @@
   }
   
   .search-result-card {
-    background: rgba(255,255,255,0.95);
-    border: 1px solid rgba(255,255,255,0.1);
-    backdrop-filter: blur(10px);
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
     border-radius: 16px;
-    transition: transform .15s ease, box-shadow .2s ease;
-    border-left: 4px solid #0d6efd;
+    transition: box-shadow .2s ease;
     margin-bottom: 1.5rem;
   }
   
   .search-result-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-    border-left-color: #198754;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
   }
   
   .search-stats {
-    background: linear-gradient(135deg, rgba(13,110,253,0.1), rgba(25,135,84,0.1));
+    background: linear-gradient(135deg, rgba(13,110,253,0.15), rgba(25,135,84,0.15));
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 15px;
     padding: 1rem 1.5rem;
@@ -88,7 +84,6 @@
 {% endblock %}
 
 {% block content %}
-  <!-- Search Hero Section -->
   <section class="search-hero py-5">
     <div class="container">
       <div class="row justify-content-center text-center">
@@ -101,69 +96,76 @@
     </div>
   </section>
 
-  <!-- Search Results Section -->
-  <section class="py-5" style="background: #f8fafc;">
+  <section class="py-5" style="background: linear-gradient(180deg, rgba(11,18,32,1) 0%, rgba(15,23,42,1) 100%);">
     <div class="container">
       {% if questions %}
         <div class="row">
           <div class="col-12">
             {% for question in questions %}
-              <div class="search-result-card p-4">
-                {% if question.created_by == user %}
-                  <span class="created-badge"> Created Question </span>
-                {% else %}
-                  <span class="answered-badge"> Answered Question </span>
-                {% endif %}
-                
-                <a href="{% url 'enter_room' question.id %}" class="text-decoration-none">
-                  <div class="d-flex w-100 justify-content-between align-items-start mb-2 mt-4">
-                    <h4 class="question-title mb-2">{{ question.title }}</h4>
-                    <small class="text-muted">{{ question.created_at|timesince }} ago</small>
+              <div class="search-result-card p-4 p-lg-5 shadow-sm h-100">
+                <div class="row align-items-center">
+                  <div class="col-12 col-lg-8">
+                    <div class="d-flex align-items-start justify-content-between mb-3">
+                      <h4 class="h5 mb-0" style="line-height: 1.4;">
+                        <a href="{% url 'enter_room' question.id %}" class="text-decoration-none text-light fw-bold">
+                          {{ question.title }}
+                        </a>
+                      </h4>
+                      {% if question.created_by == user %}
+                        <span class="created-badge ms-3 flex-shrink-0">Created Question</span>
+                      {% else %}
+                        <span class="answered-badge ms-3 flex-shrink-0">Answered Question</span>
+                      {% endif %}
+                    </div>
+                    
+                    {% if question.placeholder_paragraph %}
+                      <p class="mb-4" style="color: #94a3b8; font-size: 0.95rem; line-height: 1.6;">{{ question.placeholder_paragraph }}</p>
+                    {% else %}
+                      <p class="mb-4" style="color: #94a3b8; font-size: 0.95rem; line-height: 1.6;">---</p>
+                    {% endif %}
+                    
+                    <div class="d-flex align-items-center gap-4 question-meta" style="color: #64748b;">
+                      <span class="d-flex align-items-center">
+                        <i class="bi bi-person-circle text-primary me-2"></i>@{{ question.created_by.username }}
+                      </span>
+                      <span class="d-flex align-items-center">
+                        <i class="bi bi-calendar3 me-2"></i>{{ question.created_at|timesince }} ago
+                      </span>
+                    </div>
                   </div>
-
-                  {% if question.placeholder_paragraph %}
-                    <p class="question-text mb-4">{{ question.placeholder_paragraph }}</p>
-                  {% else %}
-                    <p class="question-text mb-4">---</p>
-                  {% endif %}
-                  <div class="row align-items-center">
-                    <div class="col-md-6">
-                      <div class="d-flex align-items-center">
-                        <i class="bi bi-person-circle text-primary me-2"></i>
-                        <span class="question-meta">@{{ question.created_by.username }}</span>
+                  
+                  <div class="col-12 col-lg-4">
+                    <div class="d-flex justify-content-lg-end gap-4 mt-4 mt-lg-0">
+                      <div class="text-center">
+                        <div class="d-flex align-items-center justify-content-center mb-1">
+                          <i class="bi bi-eye-fill text-info me-2"></i>
+                          <span class="fw-bold text-light">{{ question.seen_numbers }}</span>
+                        </div>
+                        <small style="color: #64748b;">Views</small>
+                      </div>
+                      <div class="text-center">
+                        <div class="d-flex align-items-center justify-content-center mb-1">
+                          <i class="bi bi-chat-left-text-fill text-success me-2"></i>
+                          <span class="fw-bold text-success">{{ question.answers_count }}</span>
+                        </div>
+                        <small style="color: #64748b;">Answers</small>
                       </div>
                     </div>
                     
-                    <div class="col-md-6">
-                      <div class="d-flex justify-content-md-end gap-4 mt-2 mt-md-0">
-                        <div class="d-flex align-items-center">
-                          <i class="bi bi-eye-fill text-info me-2"></i>
-                          <span class="question-meta">{{ question.seen_numbers }} views</span>
-                        </div>
-                        <div class="d-flex align-items-center">
-                          <i class="bi bi-chat-left-fill text-success me-2"></i>
-                          <span class="question-meta">{{ question.answers_count }} answers</span>
-                        </div>
-                      </div>
+                    <div class="mt-4">
+                      <a href="{% url 'enter_room' question.id %}" class="btn w-100 text-light border border-secondary" style="background: rgba(255,255,255,0.05); border-radius: 10px; transition: background 0.2s;">
+                        <i class="bi bi-arrow-right-circle me-2"></i>View Discussion
+                      </a>
                     </div>
                   </div>
-                </a>
+                </div>
               </div>
             {% endfor %}
           </div>
         </div>
       {% else %}
-        <div class="empty-state">
-          <!-- <i class="bi bi-search text-muted" style="font-size: 4rem;"></i>
-          <h4 class="mt-3 mb-3">No Results Found</h4>
-          <p class="text-muted mb-4">
-            {% if search_query %}
-              We couldn't find any questions related to "{{ topic.name }}".
-            {% else %}
-              Browse topics for related questions to find answers and insights from our community.
-            {% endif %}
-          </p> -->
-          <a href="{% url 'all_room' %}" class="btn btn-primary">
+        <div class="empty-state" style="background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.1);">
+          <a href="{% url 'all_room' %}" class="btn px-4 py-2 text-white fw-bold" style="background: linear-gradient(135deg, #0d6efd, #198754); border: none; border-radius: 50px; box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);">
             <i class="bi bi-compass me-2"></i>Browse All Questions
           </a>
         </div>

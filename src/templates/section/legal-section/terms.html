@@ -37,20 +37,19 @@
     }
   }
 
-  /* Card styling */
+  /* Policy Card */
   .policy-card {
-    background: #ffffff;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
     border-radius: 16px;
     padding: 1.75rem;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
-    transition: all 0.25s ease;
+    transition: box-shadow 0.25s ease;
     display: flex;
     align-items: flex-start;
     gap: 1rem;
   }
   .policy-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
   }
 
   /* Icon */
@@ -73,10 +72,10 @@
     margin-bottom: 0.5rem;
     font-size: 1.1rem;
     font-weight: 600;
-    color: #0f172a;
+    color: #e2e8f0;
   }
   .policy-card p {
-    color: #475569;
+    color: #94a3b8;
     line-height: 1.6;
     font-size: 0.95rem;
   }
@@ -85,7 +84,6 @@
 
 {% block content %}
 
-  <!-- Hero -->
   <section class="policy-hero">
     <div class="container">
       <h1>Terms of Service</h1>
@@ -93,7 +91,6 @@
     </div>
   </section>
 
-  <!-- Content -->
   <section class="py-5">
     <div class="container policy-grid">
 

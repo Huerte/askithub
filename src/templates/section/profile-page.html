@@ -20,7 +20,6 @@
   }
   
   .profile-card:hover {
-    transform: translateY(-2px);
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
   }
   
@@ -85,7 +84,6 @@
   }
   
   .floating-edit-btn:hover {
-    transform: translateY(-3px);
     box-shadow: 0 12px 35px rgba(13,110,253,0.4);
   }
   
@@ -130,7 +128,6 @@
   
   .btn-primary:hover {
     background: linear-gradient(135deg, #0b5ed9, #157347);
-    transform: translateY(-1px);
   }
   
   .btn-success {
@@ -169,7 +166,7 @@
         <div class="col-12 col-lg-3 text-center">
           <div class="avatar-container mb-3">
           <img 
-              {% if profile.avatar %} 
+              {% if profile.avatar and profile.avatar.name %} 
                   src="{{ profile.avatar.url }}" 
               {% else %} 
                   src="{% static 'default_pic/default.png' %}" 
@@ -287,72 +284,68 @@
     </div>
   </section>
 
-  <!-- Activity Section -->
-  <section class="py-5" style="background: #f8fafc;">
+  <section class="py-5" style="background: linear-gradient(180deg, rgba(11,18,32,1) 0%, rgba(15,23,42,1) 100%);">
     <div class="container">
-      <h3 class="section-title text-center mb-5 text-secondary">Activity Overview</h3>
-      
+      <h3 class="section-title text-center mb-5" style="color: #e2e8f0;">Activity Overview</h3>
       <div class="row g-4">
-        <!-- Activity Stats -->
         <div class="col-12 col-lg-4">
-          <div class="profile-card p-4 h-100">
-            <div class="d-flex align-items-center mb-3">
+          <div class="profile-card p-4 h-100" style="border: 1px solid rgba(255,255,255,0.05); background: rgba(255,255,255,0.02);">
+            <div class="d-flex align-items-center mb-4">
               <i class="bi bi-activity text-success me-3" style="font-size: 1.5rem;"></i>
-              <h5 class="mb-0">Activity</h5>
+              <h5 class="mb-0 text-light">Activity</h5>
             </div>
-            <div class="row g-3">
+            <div class="row g-3 mb-4">
               <div class="col-6">
-                <div class="text-center p-3 rounded" style="background: rgba(13,110,253,0.1);">
+                <div class="text-center p-3 rounded" style="background: rgba(13,110,253,0.15); border: 1px solid rgba(13,110,253,0.2);">
                   <div class="stats-number">{{ users_questions|length }}</div>
-                  <small class="text-muted">Questions</small>
+                  <small style="color: #94a3b8;">Questions</small>
                 </div>
               </div>
               <div class="col-6">
-                <div class="text-center p-3 rounded" style="background: rgba(25,135,84,0.1);">
+                <div class="text-center p-3 rounded" style="background: rgba(25,135,84,0.15); border: 1px solid rgba(25,135,84,0.2);">
                   <div class="stats-number">{{ user_answers|length }}</div>
-                  <small class="text-muted">Answers</small>
+                  <small style="color: #94a3b8;">Answers</small>
                 </div>
               </div>
             </div>
-            <div class="mt-3">
-              <a href="{% url 'view_user_activities' profile.user.id %}" class="btn btn-outline-success btn-sm w-100">
-                <i class="bi bi-arrow-right me-2"></i>View Activity
-              </a>
-            </div>
+            <a href="{% url 'view_user_activities' profile.user.id %}" class="btn btn-outline-success w-100" style="border-radius: 10px; font-weight: 500;">
+              <i class="bi bi-arrow-right me-2"></i>View Activity
+            </a>
           </div>
         </div>
-
-        <!-- Recent Activity -->
         <div class="col-12 col-lg-8">
-          <div class="profile-card p-4 h-100">
-            <div class="d-flex align-items-center mb-3">
+          <div class="profile-card p-4 h-100" style="border: 1px solid rgba(255,255,255,0.05); background: rgba(255,255,255,0.02);">
+            <div class="d-flex align-items-center mb-4">
               <i class="bi bi-clock-history text-warning me-3" style="font-size: 1.5rem;"></i>
-              <h5 class="mb-0">Recent</h5>
+              <h5 class="mb-0 text-light">Recent</h5>
             </div>
-            
-            <div class="overflow-auto" style="max-height: 150px;">
-              {% if user_activity and user_activity_active%}
-                {% for activity in user_activity %}
-                  {% if activity.is_active %}
-                    <div class="card py-3 px-2 mb-3">
-                      {% if activity.activity_type == activity.FOLLOWED_USER %}
-                        <a href="{% url 'visit_profile' activity.followed_user.id %}" class="text-decoration-none text-dark"> Followed {{ activity.followed_user }} </a>
-                      {% elif activity.activity_type == activity.QUESTION_CREATED %}
-                        <a href="{% url 'enter_room' activity.question.id %}" class="text-decoration-none text-dark"> Created Question:</a>
-                        <hr>
-                        <p class="ms-4">{{ activity.question.title }}</p>
-                      {% else %}
-                        <a href="{% url 'enter_room' activity.answer.question.id %}" class="text-decoration-none text-dark"> Answered to a question: {{ activity.question.title }}... </a>
-                        <hr>
-                        <p class="ms-4 mt-2"> Answer: {{ activity.get_answer_display }}... </p>
-                      {% endif %}
-                    </div>
-                  {% endif %}
-                {% endfor %}
+            <div class="overflow-auto pe-2" style="max-height: 250px;">
+              {% if user_activity and user_activity_active %}
+                <div class="d-flex flex-column gap-3">
+                  {% for activity in user_activity %}
+                    {% if activity.is_active %}
+                      <div class="p-3 rounded" style="background: rgba(255,255,255,0.03); border-left: 3px solid #0d6efd;">
+                        {% if activity.activity_type == activity.FOLLOWED_USER %}
+                          <span style="color: #94a3b8;">Followed </span>
+                          <a href="{% url 'visit_profile' activity.followed_user.id %}" class="text-decoration-none fw-bold text-light">{{ activity.followed_user }}</a>
+                        {% elif activity.activity_type == activity.QUESTION_CREATED %}
+                          <span style="color: #94a3b8;">Created Question </span>
+                          <a href="{% url 'enter_room' activity.question.id %}" class="text-decoration-none d-block mt-1 fw-bold text-light">{{ activity.question.title }}</a>
+                        {% else %}
+                          <span style="color: #94a3b8;">Answered </span >
+                          <a href="{% url 'enter_room' activity.answer.question.id %}" class="text-decoration-none text-light fw-bold">{{ activity.question.title }}</a>
+                          <div class="mt-2 p-2 rounded" style="background: rgba(0,0,0,0.2); color: #cbd5e1; font-size: 0.9rem;">
+                            {{ activity.get_answer_display|truncatechars:100 }}
+                          </div>
+                        {% endif %}
+                      </div>
+                    {% endif %}
+                  {% endfor %}
+                </div>
               {% else %}
-                <div class="text-center">
-                  <i class="bi bi-clock text-muted" style="font-size: 3rem;"></i>
-                  <p class="text-muted mt-2">No recent activity</p>
+                <div class="text-center py-5">
+                  <i class="bi bi-clock" style="font-size: 3rem; color: #475569;"></i>
+                  <p class="mt-3 mb-0" style="color: #94a3b8;">No recent activity</p>
                 </div>
               {% endif %}
             </div>

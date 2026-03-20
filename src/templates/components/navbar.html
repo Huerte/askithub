@@ -2,17 +2,14 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(135deg, #0b1220 0%, #0f172a 50%, #121826 100%); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.1);">
   <div class="container">
-    <!-- Brand -->
     <a class="navbar-brand fw-bold d-flex align-items-center" href="{% url 'homepage' %}" style="font-size: 1.5rem; background: linear-gradient(135deg, #0d6efd, #198754); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
       <i class="bi bi-chat-left-text-fill me-2"></i>AskItHub
     </a>
 
-    <!-- Toggle Button -->
     <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="border: 1px solid rgba(255,255,255,0.2); border-radius: 8px;">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Navigation Links -->
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
@@ -37,10 +34,8 @@
         </li>
       </ul>
 
-      <!-- User Actions -->
       {% if user and user.is_authenticated %}
         <div class="d-flex align-items-center gap-3">
-          <!-- Search Bar -->
           <form class="d-flex me-3" role="search" action="{% url 'search' %}" method="GET">
             <div class="input-group" style="width: 300px;">
               <input class="form-control" type="search" name="search_word" placeholder="Search questions..." aria-label="Search" style="border-radius: 25px 0 0 25px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: white;">
@@ -50,7 +45,6 @@
             </div>
           </form>
           
-          <!-- Profile Icon -->
           <button class="btn rounded-circle btn-primary d-none d-lg-inline-block" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" style="width: 45px; height: 45px; background: linear-gradient(135deg, #0d6efd, #198754); box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);">
             <i class="bi bi-person-fill"></i>
           </button>
@@ -69,7 +63,6 @@
   </div>
 </nav>
 
-<!-- Profile Offcanvas -->
 <div class="offcanvas offcanvas-end text-bg-dark" style="width: 300px; background: linear-gradient(135deg, #0b1220 0%, #0f172a 50%, #121826 100%);" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
   <div class="offcanvas-header border-bottom border-secondary">
     <h5 class="offcanvas-title fw-bold" id="offcanvasRightLabel">
@@ -79,7 +72,6 @@
   </div>
   
   <div class="offcanvas-body">
-    <!-- User Info Section -->
     <div class="text-center mb-4 p-3" style="background: rgba(255,255,255,0.05); border-radius: 15px;">
       <div class="mb-3">
         <i class="bi bi-person-circle text-primary" style="font-size: 3rem;"></i>
@@ -88,14 +80,12 @@
       <small class="text-secondary">{{ request.user.email }}</small>
     </div>
 
-    <!-- Profile Actions -->
     <div class="d-grid gap-3 mb-4">
       <a href="{% url 'visit_profile' request.user.id %}" class="btn btn-primary" style="border-radius: 15px; background: linear-gradient(135deg, #0d6efd, #198754); border: none;">
         <i class="bi bi-person-circle me-2"></i>View Profile
       </a>
     </div>
 
-    <!-- Logout Section -->
     <div class="border-top border-secondary pt-3">
       {% if user and user.is_authenticated %}
         <button type="button" class="btn btn-danger w-100" data-bs-toggle="modal" data-bs-target="#logoutConfirmation" style="border-radius: 15px;">
@@ -115,7 +105,6 @@
   </div>
 </div>
 
-<!-- Logout Confirmation Modal -->
 <div class="modal fade" id="logoutConfirmation" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content border-0" style="border-radius: 20px;">
