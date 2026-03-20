@@ -12,15 +12,17 @@
   .about-hero .lead { color: #cbd5e1; }
 
   .feature-card {
-    background: rgba(255,255,255,.95);
-    border: 1px solid rgba(255,255,255,.1);
-    backdrop-filter: blur(10px);
-    transition: transform .15s ease, box-shadow .2s ease;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
     border-radius: 16px;
+    transition: box-shadow .2s ease;
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   .feature-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0,0,0,.15);
+    box-shadow: 0 20px 40px rgba(0,0,0,.3);
   }
 
   .feature-icon {
@@ -44,12 +46,12 @@
     transition: transform .15s ease;
   }
   .stats-card:hover {
-    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   }
 
   .section-header { color: #e2e8f0; }
-  .soft-bg { background: #f8fafc; }
-  .text-muted { color: #64748b !important; }
+  .soft-bg { background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); }
+  .text-muted { color: #475569 !important; }
 
   .mission-section {
     background: linear-gradient(135deg, rgba(13,110,253,.05), rgba(25,135,84,.05));
@@ -78,19 +80,19 @@
     </div>
   </section>
 
-  <section class="py-5">
+  <section class="py-5" style="background: linear-gradient(180deg, rgba(11,18,32,1) 0%, rgba(15,23,42,1) 100%);">
     <div class="container">
       <div class="row g-4">
         {% for topic in topics %}
           <div class="col-12 col-md-6 col-lg-4">
-            <a href="{% url 'visit_related_topics' topic.id %}" class="text-decoration-none text-black">
-            <div class="feature-card h-100 p-4 text-center shadow-sm">
-              <div class="feature-icon mx-auto">
+            <a href="{% url 'visit_related_topics' topic.id %}" class="text-decoration-none">
+            <div class="feature-card h-100 p-5 text-center shadow-sm">
+              <div class="feature-icon mx-auto" style="box-shadow: 0 4px 15px rgba(25, 135, 84, 0.3);">
                 <i class="bi bi-tag-fill"></i>
               </div>
-              <h4 class="h5 mb-3">{{ topic.name }}</h4>
-              <p class="text-muted mb-0">
-                <strong>{{ topic.questions.count }}</strong> related question
+              <h4 class="h5 mb-3 text-light fw-bold">{{ topic.name }}</h4>
+              <p class="mb-0" style="color: #94a3b8;">
+                <strong class="text-light">{{ topic.questions.count }}</strong> related question{% if topic.questions.count != 1 %}s{% endif %}
               </p>
             </div>
             </a>
@@ -100,20 +102,20 @@
     </div>
   </section>
 
-  <section class="py-5 bg-white">
+  <section class="py-5" style="background: linear-gradient(180deg, rgba(15,23,42,1) 0%, rgba(11,18,32,1) 100%); border-top: 1px solid rgba(255,255,255,0.05);">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-12 col-lg-8 text-center">
-          <div class="feature-card p-5 shadow soft-bg">
-            <h2 class="h3 mb-4 text-dark">Ready to Get Started?</h2>
-            <p class="text-muted mb-4">
+          <div class="p-5" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px;">
+            <h2 class="h3 mb-4 text-light fw-bold">Ready to Get Started?</h2>
+            <p class="mb-4" style="color: #94a3b8; font-size: 1.1rem;">
               Join our community today and start asking questions, sharing knowledge, and learning from others.
             </p>
-            <div class="d-flex flex-wrap justify-content-center gap-3">
-              <a href="{% url 'homepage' %}" class="btn btn-primary btn-lg">
+            <div class="d-flex flex-wrap justify-content-center gap-4">
+              <a href="{% url 'homepage' %}" class="btn px-4 py-2 text-white fw-bold" style="background: linear-gradient(135deg, #0d6efd, #198754); border: none; border-radius: 50px; box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);">
                 <i class="bi bi-house-fill me-2"></i>Go Home
               </a>
-              <a href="{% url 'all_room' %}" class="btn btn-outline-success btn-lg">
+              <a href="{% url 'all_room' %}" class="btn px-4 py-2 fw-bold" style="background: transparent; color: #198754; border: 2px solid #198754; border-radius: 50px; transition: all 0.3s;">
                 <i class="bi bi-compass me-2"></i>Explore Questions
               </a>
             </div>

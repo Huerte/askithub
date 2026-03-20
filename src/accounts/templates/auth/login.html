@@ -11,18 +11,17 @@
   }
 
   .auth-card {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.02);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 20px;
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: box-shadow 0.3s ease;
     width: 100%;
     max-width: 500px;
   }
 
   .auth-card:hover {
-    transform: translateY(-5px);
     box-shadow: 0 35px 70px rgba(0, 0, 0, 0.4);
   }
 
@@ -80,12 +79,12 @@
 
   .form-floating .form-control:focus ~ label,
   .form-floating .form-control:not(:placeholder-shown) ~ label {
-    color: #25, 135, 84;
+    color: #198754;
     transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
   }
 
   .forgot-link {
-    color: #25, 135, 84;
+    color: #198754;
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s ease;
@@ -99,7 +98,7 @@
   }
 
   .btn-auth {
-    background: linear-gradient(135deg, #25, 135, 84 0%, #20c997 100%);
+    background: linear-gradient(135deg, #198754 0%, #20c997 100%);
     border: none;
     border-radius: 12px;
     padding: 1rem 2rem;
@@ -112,8 +111,7 @@
   }
 
   .btn-auth:hover {
-    background: linear-gradient(135deg, #20c997 0%, #25, 135, 84 100%);
-    transform: translateY(-2px);
+    background: linear-gradient(135deg, #20c997 0%, #198754 100%);
     box-shadow: 0 10px 25px rgba(25, 135, 84, 0.3);
     color: white;
   }
@@ -150,7 +148,7 @@
   }
 
   .signup-link a {
-    color: #25, 135, 84;
+    color: #198754;
     text-decoration: none;
     font-weight: 600;
     transition: color 0.3s ease;
@@ -164,7 +162,7 @@
   .brand-logo {
     font-size: 2rem;
     font-weight: 800;
-    background: linear-gradient(135deg, #25, 135, 84 0%, #13, 110, 253 100%);
+    background: linear-gradient(135deg, #198754 0%, #0d6efd 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -192,14 +190,12 @@
     <div class="row justify-content-center">
       <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
         <div class="auth-card p-4 p-md-5">
-          <!-- Header -->
           <div class="auth-header">
             <div class="brand-logo">AskItHub</div>
             <h1 class="auth-title">Welcome Back</h1>
             <p class="auth-subtitle">Sign in to continue your journey</p>
           </div>
 
-          <!-- Form -->
           <form method="post" action="{% url 'login' %}">
             {% csrf_token %}
             
@@ -228,7 +224,6 @@
             </button>
           </form>
           
-          <!-- Sign Up Link -->
           <div class="signup-link">
             <p class="mb-0">
               New to AskItHub?

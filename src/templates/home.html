@@ -18,16 +18,16 @@
     backdrop-filter: blur(6px);
     transition: transform .15s ease, background-color .2s ease, box-shadow .2s ease;
   }
-  .topic-chip:hover { transform: translateY(-2px); background: rgba(25,135,84,.22); box-shadow: 0 6px 20px rgba(25,135,84,.25); }
+  .topic-chip:hover { background: rgba(25,135,84,.22); box-shadow: 0 6px 20px rgba(25,135,84,.25); }
 
-  .question-card { transition: transform .15s ease, box-shadow .2s ease; border: 1px solid rgba(255,255,255,.06); }
-  .question-card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(0,0,0,.3); }
+  .question-card { transition: box-shadow .2s ease; border: 1px solid rgba(255,255,255,.06); min-height: 220px; display: flex; flex-direction: column; }
+  .question-card:hover { box-shadow: 0 10px 24px rgba(0,0,0,.3); }
   .question-card .card-title { color: #0f172a; }
-  .question-card .card-text { color: #475569; }
-  .question-meta { color: #64748b; font-size: .9rem; }
+  .question-card .card-text { color: #334155; }
+  .question-meta { color: #475569; font-size: .9rem; }
 
   .section-header { color: #e2e8f0; }
-  .soft-bg { background: #f8fafc; }
+  .soft-bg { background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); }
 
   @media (max-width: 991.98px) {
     .hero-cta { gap: .5rem; }
@@ -103,13 +103,11 @@
     </div>
   </section>
 
-  <!-- Content -->
-  <section class="py-4 soft-bg">
+  <section class="py-5" style="background: linear-gradient(180deg, rgba(11,18,32,1) 0%, rgba(15,23,42,1) 100%); border-top: 1px solid rgba(255,255,255,0.05);">
     <div class="container">
       <div class="row g-4">
-        <!-- Topics (mobile/left) -->
         <div class="col-12 d-lg-none">
-          <h5 class="mb-3">Hot Topics</h5>
+          <h5 class="mb-3 text-light">Hot Topics</h5>
           <div class="d-flex flex-wrap gap-2">
             {% for topic in topics %}
               <a href="{% url 'visit_related_topics' topic.id %}" class="btn btn-sm rounded-pill topic-chip"># {{ topic.name }}</a>
@@ -117,34 +115,41 @@
           </div>
         </div>
 
-        <!-- Recent Questions -->
         <div class="col-12">
-          <div class="d-flex justify-content-between align-items-center mb-2">
-            <h5 class="mb-0">Most Recent Questions</h5>
-            <a href="{% url 'all_room' %}" class="btn btn-outline-primary btn-sm">View all</a>
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="mb-0 text-light fw-bold">Most Recent Questions</h4>
+            <a href="{% url 'all_room' %}" class="btn btn-outline-light btn-sm rounded-pill px-3" style="border-color: rgba(255,255,255,0.2); transition: background 0.2s; ">
+              View all
+            </a>
           </div>
 
-          <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-3">
+          <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
             {% if question_thread %}
               {% for question in question_thread %}
                 <div class="col">
                   <a href="{% url 'enter_room' question.id %}" class="text-decoration-none">
-                    <div class="card question-card h-100 shadow-sm">
-                      <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-start mb-1">
-                          <h6 class="card-title mb-0">{{ question.title }}</h6>
-                          <small class="text-muted">{{ question.created_at|timesince }} ago</small>
+                    <div class="card question-card h-100" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px;">
+                      <div class="card-body d-flex flex-column p-4">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                          <h5 class="card-title fw-semibold text-light mb-0" style="line-height: 1.4;">{{ question.title }}</h5>
+                        </div>
+                        <div class="mb-3">
+                          <small style="color: #64748b;">
+                            <i class="bi bi-calendar-event me-1"></i>{{ question.created_at|timesince }} ago
+                          </small>
                         </div>
                         {% if question.placeholder_paragraph %}
-                          <p class="card-text mt-2">{{ question.placeholder_paragraph }}</p>
+                          <p class="card-text text-secondary" style="font-size: 0.95rem; line-height: 1.6;">{{ question.placeholder_paragraph }}</p>
                         {% else %}
-                          <p class="card-text mt-2">---</p>
+                          <p class="card-text text-secondary opacity-50">---</p>
                         {% endif %}
-                        <div class="d-flex justify-content-between align-items-center mt-3 question-meta">
-                          <span>@{{ question.created_by.username }}</span>
-                          <div class="d-flex align-items-center">
-                            <i class="bi bi-eye-fill me-1"></i><span class="me-3">{{ question.seen_numbers }}</span>
-                            <i class="bi bi-chat-left-fill me-1"></i><span>{{ question.answers_count }}</span>
+                        <div class="d-flex justify-content-between align-items-center mt-auto pt-3 border-top" style="border-color: rgba(255,255,255,0.05) !important;">
+                          <span style="color: #94a3b8; font-weight: 500;">
+                            <i class="bi bi-person-circle me-1 text-primary"></i>{{ question.created_by.username }}
+                          </span>
+                          <div class="d-flex align-items-center gap-3" style="color: #64748b;">
+                            <span><i class="bi bi-eye-fill me-1 text-info"></i>{{ question.seen_numbers }}</span>
+                            <span><i class="bi bi-chat-left-fill me-1 text-success"></i>{{ question.answers_count }}</span>
                           </div>
                         </div>
                       </div>
@@ -155,9 +160,9 @@
             {% endif %}
           </div>
 
-          <div class="d-flex justify-content-center mt-4">
-            <a class="btn btn-primary px-4" href="{% url 'all_room' %}">
-              Explore more
+          <div class="d-flex justify-content-center mt-5">
+            <a class="btn btn-primary px-5 py-2 rounded-pill fw-bold" href="{% url 'all_room' %}" style="background: linear-gradient(135deg, #0d6efd, #198754); border: none; box-shadow: 0 4px 15px rgba(13, 110, 253, 0.3);">
+              Explore more questions
             </a>
           </div>
         </div>
@@ -176,7 +181,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="staticBackdropLabel">Ask Question</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <form action="{% url 'add_question' %}" method="POST">
           {% csrf_token %}

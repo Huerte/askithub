@@ -19,21 +19,21 @@
 
   /* Cards */
   .contact-card {
-    background: #f8fafc;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
     border-radius: 16px;
     padding: 2rem;
-    box-shadow: 0 6px 24px rgba(0,0,0,.15);
+    transition: box-shadow 0.2s;
     height: 100%;
-    min-height: 350px; /* Keeps both columns visually balanced */
-    transition: transform 0.2s;
+    min-height: 350px;
   }
 
   .contact-card:hover {
-    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
   }
 
   .contact-card h5 {
-    color: #0f172a;
+    color: #e2e8f0;
     font-weight: 600;
     margin-bottom: 1.5rem;
   }
@@ -41,7 +41,7 @@
   /* Contact Info */
   .contact-info p {
     margin: 0.5rem 0;
-    color: #1e293b; /* Darker color for better visibility */
+    color: #94a3b8;
     font-size: 1rem;
   }
 
@@ -52,29 +52,30 @@
 
   /* Form Inputs */
   .form-control {
-    background: #fff;
-    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(255,255,255,0.05) !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
     border-radius: 12px;
     padding: 0.8rem 1rem;
     font-size: 1rem;
     transition: border-color 0.2s, box-shadow 0.2s;
-    border-color: gray !important;
   }
 
   input.form-control,
   textarea.form-control {
-    color: #000 !important;
-    background: #fff !important;
+    color: #e9ecef !important;
   }
 
   input.form-control:focus,
   textarea.form-control:focus {
-    color: #000 !important;
+    color: #e9ecef !important;
+    background: rgba(255,255,255,0.1) !important;
+    border-color: rgba(13,110,253,0.5) !important;
+    box-shadow: 0 0 0 0.2rem rgba(13,110,253,0.25) !important;
   }
   
   input.form-control::placeholder,
   textarea.form-control::placeholder {
-    color: rgb(136, 137, 136) !important;
+    color: rgba(255,255,255,0.6) !important;
     opacity: 1 !important;
   }
 
@@ -103,7 +104,6 @@
 
 {% block content %}
 
-  <!-- Hero -->
   <section class="contact-hero">
     <div class="container">
       <h1 class="display-5 fw-bold">Contact Us</h1>
@@ -111,12 +111,10 @@
     </div>
   </section>
 
-  <!-- Content -->
   <section class="py-5">
     <div class="container">
       <div class="row g-4">
         
-        <!-- Contact Info -->
         <div class="col-12 col-lg-5">
           <div class="contact-card contact-info">
             <h5 class="mb-3">Get in Touch</h5>
@@ -130,7 +128,6 @@
             <p>Mon – Fri: 9:00 AM – 6:00 PM</p>
             <p>Sat – Sun: Closed</p>
 
-            <!-- Map Embed -->
             <div class="mt-3">
               <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3105.7890012516855!2d-77.0188535237998!3d38.88306904754894!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b7b77f50ae6f01%3A0x676e7adc4032899b!2sNASA%20HQ%20Washington%20DC!5e0!3m2!1sen!2sph!4v1755830730839!5m2!1sen!2sph" 
                 width="100%" 
@@ -144,7 +141,6 @@
           </div>
         </div>
 
-        <!-- Contact Form -->
         <div class="col-12 col-lg-7">
           <div class="contact-card">
             <h5 class="mb-3">Send us a Message</h5>

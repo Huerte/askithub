@@ -19,22 +19,21 @@
     transition: transform .15s ease, box-shadow .2s ease;
   }
   .topic-filter:hover {
-    transform: translateY(-2px);
     box-shadow: 0 10px 24px rgba(0,0,0,.1);
   }
 
   .question-card {
-    background: rgba(255,255,255,.95);
-    border: 1px solid rgba(255,255,255,.1);
-    backdrop-filter: blur(10px);
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
     border-radius: 16px;
-    transition: transform .15s ease, box-shadow .2s ease;
-    border-left: 4px solid #0d6efd;
+    transition: box-shadow .2s ease;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   .question-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 35px rgba(0,0,0,.15);
-    border-left-color: #198754;
+    box-shadow: 0 15px 35px rgba(0,0,0,.3);
   }
 
   .question-meta {
@@ -52,8 +51,8 @@
   }
 
   .section-header { color: #e2e8f0; }
-  .soft-bg { background: #f8fafc; }
-  .text-muted { color: #64748b !important; }
+  .soft-bg { background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); }
+  .text-muted { color: #475569 !important; }
 
   .filter-section {
     background: linear-gradient(135deg, rgba(13,110,253,.05), rgba(25,135,84,.05));
@@ -75,7 +74,6 @@
   }
 
   .filter-btn:hover {
-    transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(13, 110, 253, 0.4);
     color: white;
   }
@@ -127,12 +125,11 @@
     </div>
   </section>  
 
-  <!-- Questions Section -->
-  <section class="py-4">
+  <section class="py-5" style="background: linear-gradient(180deg, rgba(11,18,32,1) 0%, rgba(15,23,42,1) 100%);">
     <div class="container">
-      <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="h3 mb-0 text-dark">All Questions</h2>
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+      <div class="d-flex justify-content-between align-items-center mb-5">
+        <h2 class="h3 mb-0 text-light fw-bold">All Questions</h2>
+        <button type="button" class="btn px-4 py-2 text-white" style="background: linear-gradient(135deg, #198754, #20c997); border: none; border-radius: 50px; box-shadow: 0 4px 15px rgba(25, 135, 84, 0.3);" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
           <i class="bi bi-plus-circle me-2"></i>Ask Question
         </button>
       </div>
@@ -141,54 +138,52 @@
         <div class="row g-4">
           {% for question in all_questions %}
             <div class="col-12">
-              <div class="question-card p-4 shadow-sm">
-                <div class="row">
+              <div class="question-card p-4 p-lg-5 shadow-sm h-100">
+                <div class="row align-items-center">
                   <div class="col-12 col-lg-8">
-                    <div class="d-flex align-items-start justify-content-between mb-2">
-                      <h4 class="h5 mb-0">
-                        <a href="{% url 'enter_room' question.id %}" class="text-decoration-none text-dark">
+                    <div class="d-flex align-items-start justify-content-between mb-3">
+                      <h4 class="h5 mb-0" style="line-height: 1.4;">
+                        <a href="{% url 'enter_room' question.id %}" class="text-decoration-none text-light fw-bold">
                           {{ question.title }}
                         </a>
                       </h4>
-                      <span class="topic-badge">{{ question.topic.name }}</span>
+                      <span class="topic-badge ms-3 flex-shrink-0">{{ question.topic.name }}</span>
                     </div>
                     
                     {% if question.body %}
-                      <p class="text-muted mb-3">{{ question.placeholder_paragraph }}</p>
+                      <p class="mb-4" style="color: #94a3b8; font-size: 0.95rem; line-height: 1.6;">{{ question.placeholder_paragraph }}</p>
                     {% endif %}
                     
-                    <div class="d-flex align-items-center gap-4 question-meta">
+                    <div class="d-flex align-items-center gap-4 question-meta" style="color: #64748b;">
                       <span class="d-flex align-items-center">
-                        <i class="bi bi-person-circle me-2"></i>
-                        @{{ question.created_by.username }}
+                        <i class="bi bi-person-circle text-primary me-2"></i>@{{ question.created_by.username }}
                       </span>
                       <span class="d-flex align-items-center">
-                        <i class="bi bi-calendar3 me-2"></i>
-                        {{ question.created_at|timesince }} ago
+                        <i class="bi bi-calendar3 me-2"></i>{{ question.created_at|timesince }} ago
                       </span>
                     </div>
                   </div>
                   
                   <div class="col-12 col-lg-4">
-                    <div class="d-flex justify-content-lg-end gap-3 mt-3 mt-lg-0">
+                    <div class="d-flex justify-content-lg-end gap-4 mt-4 mt-lg-0">
                       <div class="text-center">
                         <div class="d-flex align-items-center justify-content-center mb-1">
-                          <i class="bi bi-eye-fill text-primary me-2"></i>
-                          <span class="fw-bold">{{ question.seen_numbers }}</span>
+                          <i class="bi bi-eye-fill text-info me-2"></i>
+                          <span class="fw-bold text-light">{{ question.seen_numbers }}</span>
                         </div>
-                        <small class="text-muted">Views</small>
+                        <small style="color: #64748b;">Views</small>
                       </div>
                       <div class="text-center">
                         <div class="d-flex align-items-center justify-content-center mb-1">
                           <i class="bi bi-chat-left-text-fill text-success me-2"></i>
-                          <span class="h5 text-success mb-0">{{ question.answers_count }}</span>
+                          <span class="fw-bold text-success">{{ question.answers_count }}</span>
                         </div>
-                        <small class="text-muted">Answers</small>
+                        <small style="color: #64748b;">Answers</small>
                       </div>
                     </div>
                     
-                    <div class="mt-3">
-                      <a href="{% url 'enter_room' question.id %}" class="btn btn-outline-primary btn-sm w-100">
+                    <div class="mt-4">
+                      <a href="{% url 'enter_room' question.id %}" class="btn w-100 text-light border border-secondary" style="background: rgba(255,255,255,0.05); border-radius: 10px; transition: background 0.2s;">
                         <i class="bi bi-arrow-right-circle me-2"></i>View Discussion
                       </a>
                     </div>
@@ -199,11 +194,11 @@
           {% endfor %}
         </div>
       {% else %}
-        <div class="empty-state">
-          <i class="bi bi-question-circle text-muted" style="font-size: 4rem;"></i>
-          <h3 class="h4 mt-3 text-muted">No Questions Found</h3>
-          <p class="text-muted mb-4">Be the first to ask a question and start a discussion!</p>
-          <button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        <div class="empty-state" style="background: rgba(255,255,255,0.02); border: 1px dashed rgba(255,255,255,0.1);">
+          <i class="bi bi-question-circle" style="font-size: 4rem; color: #475569;"></i>
+          <h3 class="h4 mt-3 text-light">No Questions Found</h3>
+          <p class="mb-4" style="color: #94a3b8;">Be the first to ask a question and start a discussion!</p>
+          <button type="button" class="btn px-4 py-2 text-white" style="background: linear-gradient(135deg, #198754, #20c997); border: none; border-radius: 50px; box-shadow: 0 4px 15px rgba(25, 135, 84, 0.3);" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
             <i class="bi bi-plus-circle me-2"></i>Ask Your First Question
           </button>
         </div>
@@ -217,7 +212,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="staticBackdropLabel">Ask Question</h1>
-          <button type="button" class="btn btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <form action="{% url 'add_question' %}" method="POST">
           {% csrf_token %}
